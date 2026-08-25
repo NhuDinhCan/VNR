@@ -184,8 +184,8 @@ const INTERACTIVE_DOORS = [
     doorId: 'door-room4',
     check: (x: number, z: number) => z >= roomFourSpatial.worldStartZ - 2 && z <= roomFourSpatial.worldStartZ && Math.abs(x) < 2.2,
     spawnPos: [0, 3.0, roomFourSpatial.spawnWorldZ] as [number, number, number],
-    promptVi: 'vào Phòng 04: Hành trình Liên Xô — Quảng Châu',
-    promptEn: 'enter Room 04: The Soviet–Guangzhou Journey'
+    promptVi: 'vào Phòng 04: Đổi mới & Hội nhập Quốc tế',
+    promptEn: 'enter Room 04: Doi Moi & International Integration'
   },
   {
     id: 'room4-to-room3',

@@ -774,7 +774,7 @@ export default function AdminDashboard() {
             {renderAdminDoor('door-room4', 'gallery-market-economy', `Cửa số 04: ${ROOM_THREE_DISPLAY_NAME} ↔ Phòng 04`)}
 
             {/* 9. PHÒNG 4 */}
-            {renderAdminRoom('gallery-market-economy', 'Phòng 04: Liên Xô — Quảng Châu', 'Hành trình Nguyễn Ái Quốc từ Liên Xô đến Quảng Châu (1923-1927)', ['door-room4', 'door-room5'])}
+            {renderAdminRoom('gallery-market-economy', 'Phòng 04: Đổi mới & Hội nhập Quốc tế', 'Công cuộc Đổi mới, Công nghiệp hóa và Hội nhập Quốc tế (1986-nay)', ['door-room4', 'door-room5'])}
 
             {/* 10. CỬA 5 */}
             {renderAdminDoor('door-room5', 'gallery-paintings', 'Cửa số 05: Phòng 04 ↔ Phòng 05')}
