@@ -71,14 +71,14 @@ const DOOR_CONFIGS = [
     // Cửa đặt ở tường sau sảnh, tầng 2 (Y=3, Z=8)
     position: [0, 3.0, 8.0] as [number, number, number],
     rotation: [0, Math.PI, 0] as [number, number, number],
-    label: 'Phòng 01: Dấu chân tìm đường',
+    label: 'Phòng 01: Lịch sử Đảng Cộng sản Việt Nam',
   },
   {
     doorId: 'door-room2',
     targetRoom: 'gallery-three',
     position: [0, 3.0, roomFiveSpatial.worldStartZ] as [number, number, number],
     rotation: [0, Math.PI, 0] as [number, number, number],
-    label: 'Phòng 02: Bến Nhà Rồng 1911',
+    label: 'Phòng 02: Tiền thân & Chuẩn bị thành lập Đảng (1920-1930)',
   },
   {
     doorId: 'door-room3',
@@ -92,14 +92,14 @@ const DOOR_CONFIGS = [
     targetRoom: 'gallery-market-economy',
     position: [0, 3.0, roomFourSpatial.worldStartZ] as [number, number, number],
     rotation: [0, Math.PI, 0] as [number, number, number],
-    label: 'Phòng 04: Liên Xô — Quảng Châu',
+    label: 'Phòng 04: Đổi mới & Hội nhập Quốc tế (1986-nay)',
   },
   {
     doorId: 'door-room5',
     targetRoom: 'gallery-paintings',
     position: [0, 3.0, roomFourSpatial.worldEndZ] as [number, number, number],
     rotation: [0, Math.PI, 0] as [number, number, number],
-    label: 'Phòng 05: Phòng Hội Nghị',
+    label: 'Phòng 05: Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển',
   },
 ];
 

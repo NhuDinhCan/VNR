@@ -2,8 +2,8 @@
   "galleries": [
     {
       "id": "gallery-paintings",
-      "name": "Phòng 05: Phòng Hội Nghị",
-      "description": "Không gian trưng bày các tác phẩm hội họa kinh điển thế giới chất liệu sơn dầu.",
+      "name": "Phòng 05: Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển",
+      "description": "Không gian tổng quan trưng bày các kỳ Đại hội toàn quốc của Đảng Cộng sản Việt Nam và các định hướng chiến lược phát triển đất nước.",
       "scene_asset_url": "",
       "is_active": true,
       "room_width": 24,

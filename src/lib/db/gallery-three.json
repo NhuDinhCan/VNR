@@ -2,8 +2,8 @@
   "galleries": [
     {
       "id": "gallery-three",
-      "name": "Phòng 02: Bến Nhà Rồng 1911",
-      "description": "Không gian tư liệu về Bến Nhà Rồng, chuyến tàu Amiral Latouche-Tréville và công việc phụ bếp của người thanh niên Nguyễn Tất Thành.",
+      "name": "Phòng 02: Tiền thân & Chuẩn bị thành lập Đảng (1920–1930)",
+      "description": "Không gian tư liệu về quá trình khảo nghiệm lý luận Mác - Lênin, thành lập Hội Việt Nam Cách mạng Thanh niên và các tổ chức cộng sản tiền thân.",
       "scene_asset_url": "",
       "is_active": true,
       "room_width": 24,
@@ -19,14 +19,13 @@
     {
       "id": "nha-rong-departure-1911",
       "gallery_id": "gallery-three",
-      "title": { "vi": "Bến Nhà Rồng, ngày 05/06/1911", "en": "Nhà Rồng Wharf, 5 June 1911" },
-      "author": { "vi": "Tư liệu lịch sử", "en": "Historical archive" },
-      "description": { "vi": "Từ Bến Nhà Rồng ở Sài Gòn, người thanh niên Nguyễn Tất Thành rời Tổ quốc ngày 05/06/1911 để tìm con đường giải phóng dân tộc.", "en": "From Nhà Rồng Wharf in Sài Gòn, young Nguyễn Tất Thành left Vietnam on 5 June 1911 to seek a path to national liberation." },
+      "title": { "vi": "Sơ thảo Luận cương Lênin (Tháng 7/1920)", "en": "Lenin's Preliminary Draft Theses (July 1920)" },
+      "author": { "vi": "Paris – 1920", "en": "Paris – 1920" },
+      "description": { "vi": "Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và thuộc địa của Lênin đã định hướng con đường cách mạng vô sản cho sự nghiệp giải phóng Việt Nam.", "en": "Lenin's Draft Theses on National and Colonial Questions established the proletarian path for Vietnam's liberation." },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/nha-rong-harbor-1911.png",
+      "thumbnail_url": "/exhibits/anh-sang-cua-con-duong.jpg",
       "image_urls": [
-        "/exhibits/nha-rong-harbor-1911.png",
-        "/exhibits/nha-rong-postcard-1911.png"
+        "/exhibits/anh-sang-cua-con-duong.jpg"
       ],
       "coordinate_x": -10.8,
       "coordinate_y": 2.7,
@@ -41,11 +40,11 @@
     {
       "id": "nha-rong-latouche-treville",
       "gallery_id": "gallery-three",
-      "title": { "vi": "Tàu Amiral Latouche-Tréville", "en": "The Amiral Latouche-Tréville" },
-      "author": { "vi": "Tư liệu hàng hải", "en": "Maritime archive" },
-      "description": { "vi": "Tàu Amiral Latouche-Tréville là con tàu đưa Nguyễn Tất Thành rời Bến Nhà Rồng. Trên tàu, Người dùng tên Văn Ba và làm công việc phụ bếp.", "en": "The Amiral Latouche-Tréville was the ship that carried Nguyễn Tất Thành from Nhà Rồng Wharf. On board, he used the name Văn Ba and worked as a kitchen assistant." },
+      "title": { "vi": "Đại hội Tours & Đảng Cộng sản Pháp (12/1920)", "en": "Tours Congress & French Communist Party (12/1920)" },
+      "author": { "vi": "Tours – 1920", "en": "Tours – 1920" },
+      "description": { "vi": "Sự kiện bỏ phiếu tán thành Quốc tế Cộng sản III và tham gia sáng lập Đảng Cộng sản Pháp, đánh dấu bước chuyển từ người yêu nước thành người cộng sản.", "en": "Voting to join the Communist International III and helping found the French Communist Party marked the shift into a communist." },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/nha-rong-ship.svg",
+      "thumbnail_url": "/exhibits/su-lua-chon-lich-su.jpg",
       "coordinate_x": 10.8,
       "coordinate_y": 2.7,
       "coordinate_z": -12.5,
@@ -59,11 +58,11 @@
     {
       "id": "nha-rong-galley-work",
       "gallery_id": "gallery-three",
-      "title": { "vi": "Công việc phụ bếp", "en": "The kitchen assistant's work" },
-      "author": { "vi": "Tư liệu lao động", "en": "Labour archive" },
-      "description": { "vi": "Công việc trên tàu đòi hỏi chuẩn bị bếp, vận chuyển than và thực phẩm, dọn dẹp khu phục vụ. Đó là trải nghiệm lao động đầu tiên của Văn Ba trên hành trình biển.", "en": "Work on board involved preparing the galley, carrying coal and provisions, and cleaning service areas. It was Văn Ba's first experience of demanding labour at sea." },
+      "title": { "vi": "Hội Việt Nam Cách mạng Thanh niên (1925)", "en": "Vietnamese Revolutionary Youth League (1925)" },
+      "author": { "vi": "Quảng Châu – 1925", "en": "Guangzhou – 1925" },
+      "description": { "vi": "Tổ chức tiền thân trực tiếp chuẩn bị về chính trị, tư tưởng, tổ chức và cán bộ cho sự ra đời của Đảng Cộng sản Việt Nam.", "en": "The direct predecessor organization that prepared political theory, cadres, and structure for founding the Communist Party of Vietnam." },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/nha-rong-galley.svg",
+      "thumbnail_url": "/exhibits/chuan-bi-cho-cach-mang.jpg",
       "coordinate_x": -10.8,
       "coordinate_y": 2.7,
       "coordinate_z": 10.5,
@@ -77,13 +76,13 @@
     {
       "id": "nha-rong-first-voyage",
       "gallery_id": "gallery-three",
-      "title": { "vi": "Hải trình đầu tiên", "en": "The first voyage" },
-      "author": { "vi": "Bản đồ tư liệu", "en": "Archival map" },
-      "description": { "vi": "Con tàu đi từ Sài Gòn qua nhiều cảng ở châu Á và châu Phi trước khi tới Pháp. Những điểm dừng mở ra cho Nguyễn Tất Thành cơ hội quan sát đời sống và xã hội của nhiều dân tộc.", "en": "The ship travelled from Sài Gòn through ports in Asia and Africa before reaching France. These stops gave Nguyễn Tất Thành opportunities to observe the lives and societies of many peoples." },
+      "title": { "vi": "Tác phẩm Đường Kách Mệnh (1927)", "en": "The Revolutionary Path (1927)" },
+      "author": { "vi": "Quảng Châu – 1927", "en": "Guangzhou – 1927" },
+      "description": { "vi": "Tập hợp các bài giảng huấn luyện cán bộ cách mạng, trang bị lý luận Mác - Lênin làm nền tảng tư tưởng cho phong trào cách mạng Việt Nam.", "en": "Compiled revolutionary training lectures equipping cadres with Marxist-Leninist theory as the ideological foundation." },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/nha-rong-first-voyage.png",
+      "thumbnail_url": "/exhibits/thanh-lap-dang-1930.png",
       "image_urls": [
-        "/exhibits/nha-rong-first-voyage.png"
+        "/exhibits/thanh-lap-dang-1930.png"
       ],
       "coordinate_x": 10.8,
       "coordinate_y": 2.7,

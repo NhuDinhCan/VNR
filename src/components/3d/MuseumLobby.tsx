@@ -191,12 +191,12 @@ export const MuseumLobby: React.FC = () => {
           anchorX="center"
           anchorY="middle"
           color="#ffe6a3"
-          fontSize={0.6}
+          fontSize={0.52}
           letterSpacing={0.015}
           maxWidth={11.4}
           textAlign="center"
         >
-          BẢO TÀNG THEO DẤU CHÂN NGƯỜI
+          BẢO TÀNG LỊCH SỬ ĐẢNG CỘNG SẢN VIỆT NAM
         </Text>
       </group>
 
