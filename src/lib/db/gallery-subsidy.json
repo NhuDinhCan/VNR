@@ -1,0 +1,210 @@
+{
+  "galleries": [
+    {
+      "id": "gallery-subsidy",
+      "name": "Phòng Lịch sử Đảng Cộng sản Việt Nam",
+      "description": "Các mốc lịch sử quang vinh của Đảng Cộng sản Việt Nam (1930 đến nay)",
+      "scene_asset_url": "",
+      "is_active": true,
+      "room_width": 24,
+      "room_length": 46,
+      "room_height": 8,
+      "floor_color": "#601118",
+      "wall_color": "#eae5dc",
+      "wainscoting_color": "#f8fafc",
+      "floor_type": "carpet",
+      "rope_barriers_config": "[{\"xOffset\":0,\"zOffset\":-2},{\"xOffset\":0,\"zOffset\":0},{\"xOffset\":0,\"zOffset\":0},{\"xOffset\":0,\"zOffset\":-1.8},{\"xOffset\":0,\"zOffset\":-0.1},{\"xOffset\":0,\"zOffset\":-0.2}]"
+    }
+  ],
+  "exhibits": [
+    {
+      "id": "exhibit-coupon",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "THÀNH LẬP ĐẢNG",
+        "en": "FOUNDING OF THE PARTY"
+      },
+      "author": {
+        "vi": "Hồng Kông – 03/02/1930",
+        "en": "Hong Kong – 03 February 1930"
+      },
+      "description": {
+        "vi": "Ngày 3/2/1930, Hội nghị hợp nhất các tổ chức cộng sản tại Cửu Long (Hồng Kông) do Nguyễn Ái Quốc chủ trì đã thông qua Chánh cương tắt, Sách lược tắt, Điều lệ tắt, chính thức thành lập Đảng Cộng sản Việt Nam. Đây là bước ngoặt vĩ đại trong lịch sử cách mạng nước ta.",
+        "en": "On 3 February 1930, the unification conference chaired by Nguyễn Ái Quốc in Hong Kong officially founded the Communist Party of Vietnam, marking a great turning point in Vietnamese revolutionary history."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/thanh-lap-dang-1930.png",
+      "coordinate_x": -11.8,
+      "coordinate_y": 3.65,
+      "coordinate_z": -17.25,
+      "rotation_x": 0.0085,
+      "rotation_y": 1.5708,
+      "rotation_z": 0.0085,
+      "scale_x": 4,
+      "scale_y": 2.8,
+      "scale_z": 0.1
+    },
+    {
+      "id": "exhibit-world-1911-1917",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "XÔ VIẾT NGHỆ TĨNH",
+        "en": "XO VIET NGHE TINH MOVEMENT"
+      },
+      "author": {
+        "vi": "1930–1931 – Cao trào cách mạng đầu tiên",
+        "en": "1930–1931 – First Revolutionary Wave"
+      },
+      "description": {
+        "vi": "Dưới sự lãnh đạo của Đảng Cộng sản Việt Nam, phong trào cách mạng 1930–1931 đỉnh cao là Xô viết Nghệ Tĩnh đã bùng nổ mạnh mẽ, khẳng định quyền lãnh đạo và năng lực tổ chức đấu tranh của giai cấp công nhân và nhân dân lao động.",
+        "en": "Under the leadership of the Party, the 1930–1931 revolutionary wave culminating in the Xo Viet Nghe Tinh movement demonstrated the fighting capacity of the working class."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/xo-viet-nghe-tinh.png",
+      "coordinate_x": -11.75,
+      "coordinate_y": 2.85,
+      "coordinate_z": 0,
+      "rotation_x": 0,
+      "rotation_y": 1.5708,
+      "rotation_z": 0,
+      "scale_x": 3.55,
+      "scale_y": 2.75,
+      "scale_z": 0.1
+    },
+    {
+      "id": "exhibit-versailles-1919",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "PHONG TRÀO DÂN CHỦ",
+        "en": "DEMOCRATIC MOVEMENT"
+      },
+      "author": {
+        "vi": "1936–1939 – Đòi dân sinh, dân chủ",
+        "en": "1936–1939 – Demand for Civil Rights"
+      },
+      "description": {
+        "vi": "Giai đoạn 1936–1939, Đảng phát động phong trào đấu tranh rộng lớn đòi tự do, dân sinh, dân chủ, cơm áo, hòa bình, tập hợp đông đảo quần chúng nhân dân chống chủ nghĩa phát xít và thực dân phản động.",
+        "en": "During 1936–1939, the Party launched a broad democratic movement demanding freedom, livelihoods, and peace, mobilizing the masses against fascism and reactionaries."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/phong-trao-dan-chu-1936.png",
+      "coordinate_x": -11.75,
+      "coordinate_y": 2.85,
+      "coordinate_z": 16,
+      "rotation_x": 0,
+      "rotation_y": 1.5708,
+      "rotation_z": 0,
+      "scale_x": 3.55,
+      "scale_y": 2.75,
+      "scale_z": 0.1
+    },
+    {
+      "id": "exhibit-lenin-theses-1920",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "CÁCH MẠNG THÁNG TÁM",
+        "en": "AUGUST REVOLUTION"
+      },
+      "author": {
+        "vi": "Tháng 8/1945 – Khai sinh nước Việt Nam Dân chủ Cộng hòa",
+        "en": "August 1945 – Birth of Democratic Republic of Vietnam"
+      },
+      "description": {
+        "vi": "Dưới sự lãnh đạo sáng suốt của Đảng, toàn dân ta đã thực hiện cuộc Tổng khởi nghĩa Tháng Tám năm 1945 thành công. Ngày 2/9/1945, Bác Hồ đọc Tuyên ngôn Độc lập khai sinh nước Việt Nam Dân chủ Cộng hòa.",
+        "en": "Under the leadership of the Party, the Vietnamese people achieved the successful August Revolution in 1945. On 2 September 1945, the Declaration of Independence founded the Democratic Republic of Vietnam."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/cach-mang-thang-tam-1945.png",
+      "coordinate_x": 11.75,
+      "coordinate_y": 2.85,
+      "coordinate_z": -17.9,
+      "rotation_x": 0,
+      "rotation_y": -1.5708,
+      "rotation_z": 0,
+      "scale_x": 3.55,
+      "scale_y": 2.75,
+      "scale_z": 0.1
+    },
+    {
+      "id": "exhibit-tours-1920",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "ĐIỆN BIÊN PHỦ 1954",
+        "en": "DIEN BIEN PHU VICTORY"
+      },
+      "author": {
+        "vi": "07/05/1954 – Lừng lẫy năm châu, chấn động địa cầu",
+        "en": "07 May 1954 – World-Resonating Victory"
+      },
+      "description": {
+        "vi": "Chiến thắng Điện Biên Phủ lịch sử năm 1954 đã đập tan tập đoàn cứ điểm của thực dân Pháp, buộc Pháp phải ký Hiệp định Giơ-ne-vơ công nhận độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam.",
+        "en": "The historical victory of Dien Bien Phu in 1954 crushed French colonial forces, compelling the signing of the Geneva Accords recognizing Vietnam's independence and sovereignty."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/dien-bien-phu-1954.png",
+      "coordinate_x": 11.75,
+      "coordinate_y": 2.85,
+      "coordinate_z": 0,
+      "rotation_x": 0,
+      "rotation_y": -1.5708,
+      "rotation_z": 0,
+      "scale_x": 3.55,
+      "scale_y": 2.75,
+      "scale_z": 0.1
+    },
+    {
+      "id": "exhibit-guangzhou-1925-1927",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "ĐẠI THẮNG MÙA XUÂN 1975",
+        "en": "GREAT SPRING VICTORY 1975"
+      },
+      "author": {
+        "vi": "30/04/1975 – Giải phóng miền Nam, Thống nhất Đất nước",
+        "en": "30 April 1975 – National Reunification"
+      },
+      "description": {
+        "vi": "Cuộc Tổng tiến công và nổi dậy Mùa Xuân 1975, đỉnh cao là Chiến dịch Hồ Chí Minh, đã kết thúc thắng lợi cuộc kháng chiến chống Mỹ cứu nước, giải phóng hoàn toàn miền Nam, thu giang sơn về một mối.",
+        "en": "The 1975 Spring General Offensive, culminating in the historic Ho Chi Minh Campaign, completely liberated South Vietnam and reunified the nation."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/giai-phong-mien-nam-1975.png",
+      "coordinate_x": 11.75,
+      "coordinate_y": 2.85,
+      "coordinate_z": 16,
+      "rotation_x": 0,
+      "rotation_y": -1.5708,
+      "rotation_z": 0,
+      "scale_x": 3.55,
+      "scale_y": 2.75,
+      "scale_z": 0.1
+    },
+    {
+      "id": "exhibit-convergence-1930",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "ĐỔI MỚI & PHÁT TRIỂN",
+        "en": "RENOVATION & DEVELOPMENT"
+      },
+      "author": {
+        "vi": "Đại hội VI (1986) – Nâng tầm vóc dân tộc",
+        "en": "6th Party Congress (1986) – Elevating the Nation"
+      },
+      "description": {
+        "vi": "Đường lối Đổi mới toàn diện đất nước do Đảng đề ra từ Đại hội VI (1986) đã đưa Việt Nam vượt qua khủng hoảng, phát triển kinh tế mạnh mẽ, hội nhập quốc tế và nâng cao vị thế trên trường quốc tế.",
+        "en": "The comprehensive Renovation (Doi Moi) policy initiated at the 6th Congress in 1986 guided Vietnam out of economic crisis into modern growth and international integration."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/cong-cuoc-doi-moi-1986.png",
+      "coordinate_x": 0,
+      "coordinate_y": 1.1,
+      "coordinate_z": 0,
+      "rotation_x": 0,
+      "rotation_y": 0,
+      "rotation_z": 0,
+      "scale_x": 2.8,
+      "scale_y": 1.9,
+      "scale_z": 0.1
+    }
+  ]
+}

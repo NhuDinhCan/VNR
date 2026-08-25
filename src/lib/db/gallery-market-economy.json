@@ -1,0 +1,19 @@
+{
+  "galleries": [
+    {
+      "id": "gallery-market-economy",
+      "name": "Trạm hành trình Liên Xô — Quảng Châu",
+      "description": "Hành trình từ lý luận quốc tế tại Liên Xô đến tổ chức, báo chí, cán bộ và mạng lưới cách mạng tại Quảng Châu (1923–1927).",
+      "scene_asset_url": "",
+      "is_active": true,
+      "room_width": 18,
+      "room_length": 80,
+      "room_height": 6,
+      "floor_color": "#111a24",
+      "wall_color": "#1c2934",
+      "wainscoting_color": "#2b3a46",
+      "floor_type": "carpet"
+    }
+  ],
+  "exhibits": []
+}
