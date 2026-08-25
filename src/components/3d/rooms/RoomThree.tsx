@@ -1,7 +1,27 @@
-import React from 'react';
+import React, { Component, ReactNode } from 'react';
 import { BaseRoom, BaseRoomProps } from './BaseRoom';
 import { VideoPillar } from '../VideoPillar';
 import { RoomThreeHistoricExhibits } from './RoomThreeHistoricExhibits';
+
+class RoomThreeErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+  constructor(props: { children: ReactNode }) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error: unknown) {
+    console.warn('RoomThree element error caught safely:', error);
+  }
+
+  render() {
+    if (this.state.hasError) return null;
+    return this.props.children;
+  }
+}
 
 /**
  * Room Three deliberately inherits the same clear BaseRoom shell as Room Two.
@@ -18,8 +38,10 @@ export const RoomThree: React.FC<BaseRoomProps> = ({
     customSettings={customSettings}
     isVisible={isVisible}
   >
-    <VideoPillar isVisible={isVisible} />
-    <RoomThreeHistoricExhibits isVisible={isVisible} />
+    <RoomThreeErrorBoundary>
+      <VideoPillar isVisible={isVisible} />
+      <RoomThreeHistoricExhibits isVisible={isVisible} />
+    </RoomThreeErrorBoundary>
   </BaseRoom>
 );
 

@@ -257,9 +257,28 @@ type HistoricArtworkProps = HistoricArtwork & {
 };
 
 const HistoricArtwork: React.FC<HistoricArtworkProps> = ({ src, size, onSelect }) => {
-  const artworkTexture = useTexture(src, (texture) => {
-    texture.colorSpace = SRGBColorSpace;
-  });
+  const [texture, setTexture] = useState<THREE.Texture | null>(null);
+
+  useEffect(() => {
+    const loader = new THREE.TextureLoader();
+    let isMounted = true;
+    loader.load(
+      src,
+      (loadedTexture) => {
+        if (isMounted) {
+          loadedTexture.colorSpace = SRGBColorSpace;
+          setTexture(loadedTexture);
+        }
+      },
+      undefined,
+      (err) => {
+        console.warn('Failed to load artwork texture:', src, err);
+      }
+    );
+    return () => {
+      isMounted = false;
+    };
+  }, [src]);
 
   const selectArtwork = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
@@ -269,7 +288,11 @@ const HistoricArtwork: React.FC<HistoricArtworkProps> = ({ src, size, onSelect }
   return (
     <mesh position={[0, 0, 0.155]} onClick={selectArtwork} onPointerDown={selectArtwork}>
       <planeGeometry args={size} />
-      <meshBasicMaterial map={artworkTexture} toneMapped={false} />
+      {texture ? (
+        <meshBasicMaterial map={texture} toneMapped={false} />
+      ) : (
+        <meshStandardMaterial color="#3b2b1d" roughness={0.8} />
+      )}
     </mesh>
   );
 };

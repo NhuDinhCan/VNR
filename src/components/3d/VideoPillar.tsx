@@ -1,8 +1,7 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { useVideoTexture } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 
 const ROOM_THREE_PILLAR_VIDEO_URL = '/videos/room-three-pillar.mp4';
@@ -27,22 +26,41 @@ const ACTIVATION_RADIUS = 4.8;
 const ACTIVATION_RADIUS_SQUARED = ACTIVATION_RADIUS * ACTIVATION_RADIUS;
 
 export const VideoPillar: React.FC<VideoPillarProps> = ({ isVisible = true }) => {
-  const videoTexture = useVideoTexture(ROOM_THREE_PILLAR_VIDEO_URL, {
-    start: false,
-    muted: true,
-    loop: true,
-    playsInline: true,
-    crossOrigin: 'anonymous',
-  });
+  const [videoTexture, setVideoTexture] = useState<THREE.VideoTexture | null>(null);
   const pillarGroup = useRef<THREE.Group>(null);
   const pillarWorldPosition = useRef(new THREE.Vector3());
-  const videoElement = useRef<HTMLVideoElement>(null);
+  const videoElementRef = useRef<HTMLVideoElement | null>(null);
   const hasStartedPlayback = useRef(false);
   const nextPlaybackAttemptAt = useRef(0);
 
   useEffect(() => {
-    videoElement.current = videoTexture.image;
-  }, [videoTexture]);
+    if (typeof window === 'undefined') return;
+
+    const video = document.createElement('video');
+    video.src = ROOM_THREE_PILLAR_VIDEO_URL;
+    video.loop = true;
+    video.muted = true;
+    video.playsInline = true;
+    video.preload = 'auto';
+
+    videoElementRef.current = video;
+
+    const texture = new THREE.VideoTexture(video);
+    texture.colorSpace = THREE.SRGBColorSpace;
+    texture.minFilter = THREE.LinearFilter;
+    texture.magFilter = THREE.LinearFilter;
+    texture.format = THREE.RGBAFormat;
+
+    setVideoTexture(texture);
+
+    return () => {
+      video.pause();
+      video.src = '';
+      video.load();
+      texture.dispose();
+      videoElementRef.current = null;
+    };
+  }, []);
 
   useFrame(({ camera, clock }) => {
     if (!isVisible || hasStartedPlayback.current) return;
@@ -56,7 +74,7 @@ export const VideoPillar: React.FC<VideoPillarProps> = ({ isVisible = true }) =>
     const distanceSquared = dx * dx + dz * dz;
     if (distanceSquared > ACTIVATION_RADIUS_SQUARED) return;
 
-    const video = videoElement.current;
+    const video = videoElementRef.current;
     if (!video) return;
     if (!video.paused) {
       hasStartedPlayback.current = true;
@@ -75,10 +93,10 @@ export const VideoPillar: React.FC<VideoPillarProps> = ({ isVisible = true }) =>
   useEffect(() => {
     if (isVisible) return;
 
-    videoElement.current?.pause();
+    videoElementRef.current?.pause();
     hasStartedPlayback.current = false;
     nextPlaybackAttemptAt.current = 0;
-  }, [isVisible, videoTexture]);
+  }, [isVisible]);
 
   return (
     <group ref={pillarGroup} visible={isVisible}>
@@ -113,7 +131,11 @@ export const VideoPillar: React.FC<VideoPillarProps> = ({ isVisible = true }) =>
           </mesh>
           <mesh position={[0, 0, 0.086]}>
             <planeGeometry args={[videoWidth, videoHeight]} />
-            <meshBasicMaterial map={videoTexture} toneMapped={false} color="#ffffff" />
+            {videoTexture ? (
+              <meshBasicMaterial map={videoTexture} toneMapped={false} color="#ffffff" />
+            ) : (
+              <meshStandardMaterial color="#1c2936" roughness={0.5} />
+            )}
           </mesh>
         </group>
         );
