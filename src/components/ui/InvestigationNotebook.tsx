@@ -671,7 +671,7 @@ export const InvestigationNotebook: React.FC = () => {
                       ? 'text-slate-500'
                       : 'text-[#725b29]'
                   }`}>
-                    {activeTab === 'clues' ? 'DETAILED INVESTIGATION DOSSIER' : 'KẾT NỐI HÀNH TRÌNH TÌM ĐƯỜNG'}
+                    {activeTab === 'clues' ? 'DETAILED INVESTIGATION DOSSIER' : 'KẾT NỐI LỊCH SỬ ĐẢNG CỘNG SẢN VIỆT NAM'}
                   </p>
                 </div>
                 {activeTab === 'deduction' && score !== null && (
@@ -859,10 +859,10 @@ export const InvestigationNotebook: React.FC = () => {
 
                         <div className="space-y-1.5 text-[11px] leading-relaxed font-sans text-slate-800 text-justify">
                           <p>
-                            Qua quá trình khảo sát và kết nối các tư liệu, tôi xác nhận hành trình tìm đường cứu nước của Nguyễn Ái Quốc từ năm 1911 đến năm 1930 là một quá trình phát triển liên tục từ <b>khảo nghiệm thực tiễn</b> đến <b>xác định con đường, chuẩn bị lực lượng và thống nhất tổ chức</b>.
+                            Qua quá trình khảo sát và kết nối các tư liệu, tôi xác nhận các mốc Lịch sử Đảng Cộng sản Việt Nam từ năm 1930 đến nay là một hành trình phát triển quang vinh liên tục từ <b>thành lập Đảng</b> đến <b>lãnh đạo hai cuộc kháng chiến giải phóng dân tộc và Công cuộc Đổi mới toàn diện đất nước</b>.
                           </p>
                           <p>
-                            Những bước chuyển đó tạo nền tảng tư tưởng, chính trị, cán bộ và tổ chức cho cách mạng Việt Nam, đồng thời dẫn tới sự ra đời của Đảng Cộng sản Việt Nam đầu năm 1930.
+                            Những thắng lợi vĩ đại đó khẳng định vai trò lãnh đạo duy nhất, đúng đắn và bản lĩnh cách mạng của Đảng Cộng sản Việt Nam đối với sự nghiệp xây dựng và bảo vệ Tổ quốc.
                           </p>
                         </div>
                       </div>

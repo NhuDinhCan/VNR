@@ -524,7 +524,7 @@ export const ExhibitModal: React.FC = () => {
               : isFirstVoyageGame
               ? (language === 'vi' ? 'Trò chơi hải trình' : 'Voyage game')
               : isSubsidyRoom
-                ? 'Theo dấu chân Người'
+                ? 'Lịch sử Đảng Cộng sản Việt Nam'
                 : (selectedExhibit.model_3d_url ? 'Điêu Khắc 3D' : 'Hội Họa 2D')}
           </span>
         </div>

@@ -172,11 +172,11 @@ export default function AdminDashboard() {
     if (!adminSocket) return;
     const roomName = targetRoom === 'lobby' 
       ? 'Sảnh chờ' 
-      : targetRoom === 'gallery-subsidy' ? 'Phòng 01 (Dấu chân tìm đường)'
-      : targetRoom === 'gallery-three' ? 'Phòng 02 (Bến Nhà Rồng 1911)'
+      : targetRoom === 'gallery-subsidy' ? 'Phòng 01 (Lịch sử Đảng Cộng sản Việt Nam)'
+      : targetRoom === 'gallery-three' ? 'Phòng 02 (Tiền thân & Chuẩn bị thành lập Đảng)'
       : targetRoom === 'gallery-ceramics' ? ROOM_THREE_DISPLAY_NAME
-      : targetRoom === 'gallery-market-economy' ? 'Phòng 04 (Kinh tế thị trường)'
-      : 'Phòng 05 (Phòng Hội nghị)';
+      : targetRoom === 'gallery-market-economy' ? 'Phòng 04 (Đổi mới & Hội nhập Quốc tế)'
+      : 'Phòng 05 (Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển)';
 
     const confirmMsg = `Bạn có chắc chắn muốn DỊCH CHUYỂN TOÀN BỘ người chơi đang ở ngoài phòng này lập tức vào: ${roomName}?`;
     if (window.confirm(confirmMsg)) {
@@ -756,13 +756,13 @@ export default function AdminDashboard() {
             {renderAdminDoor('door-room1', 'gallery-subsidy', 'Cửa số 01: Sảnh ↔ Phòng 01')}
 
             {/* 3. PHÒNG 1 */}
-            {renderAdminRoom('gallery-subsidy', 'Phòng 01: Dấu chân tìm đường', 'Hành trình tìm đường cứu nước của Nguyễn Ái Quốc, 1911–1930', ['door-room1', 'door-room2'])}
+            {renderAdminRoom('gallery-subsidy', 'Phòng 01: Lịch sử Đảng Cộng sản Việt Nam', 'Các mốc lịch sử quang vinh của Đảng Cộng sản Việt Nam (1930 đến nay)', ['door-room1', 'door-room2'])}
 
             {/* 4. CỬA 2 */}
             {renderAdminDoor('door-room2', 'gallery-three', 'Cửa số 02: Phòng 01 ↔ Phòng 02')}
 
             {/* 5. PHÒNG 2 */}
-            {renderAdminRoom('gallery-three', 'Phòng 02: Bến Nhà Rồng 1911', 'Bến Nhà Rồng, tàu Amiral Latouche-Tréville và công việc phụ bếp của Văn Ba', ['door-room2', 'door-room3'])}
+            {renderAdminRoom('gallery-three', 'Phòng 02: Tiền thân & Chuẩn bị thành lập Đảng (1920–1930)', 'Quá trình khảo nghiệm lý luận Mác - Lênin và các tổ chức cộng sản tiền thân', ['door-room2', 'door-room3'])}
 
             {/* 6. CỬA 3 */}
             {renderAdminDoor('door-room3', 'gallery-ceramics', `Cửa số 03: Phòng 02 ↔ ${ROOM_THREE_DISPLAY_NAME}`)}

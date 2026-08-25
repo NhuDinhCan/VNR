@@ -104,11 +104,11 @@ const DOOR_CONFIGS = [
 ];
 
 const TRANSITION_ROOM_TITLES: Record<string, string> = {
-  'gallery-subsidy': 'Phòng 1: DẤU CHÂN TÌM ĐƯỜNG',
-  'gallery-three': 'Phòng 2: BẾN CẢNG RA KHƠI',
-  'gallery-ceramics': 'Phòng 3: TIẾNG NÓI TỪ AN NAM',
-  'gallery-market-economy': 'Phòng 4: NHỮNG ĐIỂM DỪNG CÁCH MẠNG',
-  'gallery-paintings': 'Phòng 5: HỘI TỤ TẠI HƯƠNG CẢNG',
+  'gallery-subsidy': 'Phòng 1: LỊCH SỬ ĐẢNG CỘNG SẢN VIỆT NAM',
+  'gallery-three': 'Phòng 2: TIỀN THÂN & CHUẨN BỊ THÀNH LẬP ĐẢNG',
+  'gallery-ceramics': 'Phòng 3: ĐẢNG LÃNH ĐẠO CÁC CUỘC KHÁNG CHIẾN',
+  'gallery-market-economy': 'Phòng 4: ĐỔI MỚI & HỘI NHẬP QUỐC TẾ',
+  'gallery-paintings': 'Phòng 5: CÁC KỲ ĐẠI HỘI ĐẢNG & TẦM NHÌN PHÁT TRIỂN',
 };
 
 // Cấu hình các cổng cửa dịch chuyển tương tác khi đứng gần và nhấn E (Tách phòng độc lập)
@@ -121,7 +121,7 @@ const INTERACTIVE_DOORS = [
     doorId: 'door-room1',
     check: (x: number, z: number) => z >= 6.0 && z <= 8.0 && Math.abs(x) < 2.2,
     spawnPos: [0, 3.0, 10.0] as [number, number, number],
-    promptVi: 'vào Phòng 01: Dấu chân tìm đường',
+    promptVi: 'vào Phòng 01: Lịch sử Đảng Cộng sản Việt Nam',
     promptEn: 'enter Room 01: Subsidy Room'
   },
   {
@@ -1453,11 +1453,11 @@ export default function LobbyPage() {
     }
     const ROOM_GALLERY_MAP: Record<string, { id: string; name: string }> = {
       'lobby': { id: 'lobby', name: 'Sảnh Bảo Tàng' },
-      'gallery-subsidy': { id: 'gallery-subsidy', name: 'Phòng 01: Dấu chân tìm đường' },
-      'gallery-paintings': { id: 'gallery-paintings', name: 'Phòng 05: Phòng Hội Nghị' },
+      'gallery-subsidy': { id: 'gallery-subsidy', name: 'Phòng 01: Lịch sử Đảng Cộng sản Việt Nam' },
+      'gallery-paintings': { id: 'gallery-paintings', name: 'Phòng 05: Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển' },
       'gallery-ceramics': { id: 'gallery-ceramics', name: ROOM_THREE_DISPLAY_NAME },
-      'gallery-market-economy': { id: 'gallery-market-economy', name: 'Phòng 04: Liên Xô — Quảng Châu' },
-      'gallery-three': { id: 'gallery-three', name: 'Phòng 02: Bến Nhà Rồng 1911' },
+      'gallery-market-economy': { id: 'gallery-market-economy', name: 'Phòng 04: Đổi mới & Hội nhập Quốc tế' },
+      'gallery-three': { id: 'gallery-three', name: 'Phòng 02: Tiền thân & Chuẩn bị thành lập Đảng' },
     };
     const meta = ROOM_GALLERY_MAP[currentRoom] ?? { id: currentRoom, name: currentRoom };
     setActiveGallery({ id: meta.id, name: meta.name, description: '', scene_asset_url: '', is_active: true });
@@ -1683,7 +1683,7 @@ export default function LobbyPage() {
                 {language === 'vi' ? 'Sảnh bảo tàng 3D' : '3D Museum Lobby'}
               </span>
               <h2 className="text-xl font-bold text-white tracking-tight mt-2">
-                {language === 'vi' ? 'Bảo tàng Theo Dấu Chân Người' : 'Museum of Economic Evolution'}
+                {language === 'vi' ? 'Bảo tàng Lịch sử Đảng Cộng sản Việt Nam' : 'Museum of Communist Party of Vietnam History'}
               </h2>
               <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-xs mx-auto">
                 {language === 'vi'
