@@ -27,7 +27,7 @@ export const RoomOneSoundtrack: React.FC = () => {
       return { src: '/audio/room-one-soundtrack.mp3', title: 'Nhạc nền Phòng 01' };
     }
     if (['gallery-three', 'gallery-ceramics', 'gallery-market-economy'].includes(roomId)) {
-      return { src: '/audio/dang-da-cho-ta-mot-mua-xuan.mp3', title: 'Đảng đã cho ta một mùa xuân' };
+      return { src: '/audio/tien-buoc-duoi-quan-ky.mp3', title: 'Tiến bước dưới quân kỳ' };
     }
     return null;
   };
