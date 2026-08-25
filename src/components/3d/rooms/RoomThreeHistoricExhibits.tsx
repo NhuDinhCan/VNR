@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { Html, Text, useTexture } from '@react-three/drei';
-import { SRGBColorSpace, type Object3D } from 'three';
+import { Html, Text } from '@react-three/drei';
+import { SRGBColorSpace, Texture, TextureLoader, type Object3D } from 'three';
 
 interface RoomThreeHistoricExhibitsProps {
   isVisible?: boolean;
@@ -257,21 +257,21 @@ type HistoricArtworkProps = HistoricArtwork & {
 };
 
 const HistoricArtwork: React.FC<HistoricArtworkProps> = ({ src, size, onSelect }) => {
-  const [texture, setTexture] = useState<THREE.Texture | null>(null);
+  const [texture, setTexture] = useState<Texture | null>(null);
 
   useEffect(() => {
-    const loader = new THREE.TextureLoader();
+    const loader = new TextureLoader();
     let isMounted = true;
     loader.load(
       src,
-      (loadedTexture) => {
+      (loadedTexture: Texture) => {
         if (isMounted) {
           loadedTexture.colorSpace = SRGBColorSpace;
           setTexture(loadedTexture);
         }
       },
       undefined,
-      (err) => {
+      (err: unknown) => {
         console.warn('Failed to load artwork texture:', src, err);
       }
     );
