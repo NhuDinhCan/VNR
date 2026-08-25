@@ -16,12 +16,26 @@ export const RoomOneSoundtrack: React.FC = () => {
     audioPlaying,
   } = useMuseum();
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const currentTrackSrcRef = useRef<string | null>(null);
   const [hasUserInteracted, setHasUserInteracted] = useState(false);
   const [enabled, setEnabled] = useState(true);
 
-  const isInRoomOne = currentRoom === 'gallery-subsidy' || activeGallery?.id === 'gallery-subsidy';
+  const activeRoomId = currentRoom || activeGallery?.id || 'gallery-subsidy';
+  
+  const getTrackForRoom = (roomId: string) => {
+    if (roomId === 'gallery-subsidy') {
+      return { src: '/audio/room-one-soundtrack.mp3', title: 'Nhạc nền Phòng 01' };
+    }
+    if (['gallery-three', 'gallery-ceramics', 'gallery-market-economy'].includes(roomId)) {
+      return { src: '/audio/dang-da-cho-ta-mot-mua-xuan.mp3', title: 'Đảng đã cho ta một mùa xuân' };
+    }
+    return null;
+  };
+
+  const currentTrack = getTrackForRoom(activeRoomId);
+  const isInSupportedRoom = Boolean(currentTrack);
   const shouldDuck = Boolean(selectedExhibit) || audioPlaying;
-  const targetVolume = !enabled || !isInRoomOne
+  const targetVolume = !enabled || !isInSupportedRoom
     ? 0
     : shouldDuck
       ? DUCKED_VOLUME
@@ -30,17 +44,37 @@ export const RoomOneSoundtrack: React.FC = () => {
   useEffect(() => {
     const storedPreference = window.localStorage.getItem('roomOneSoundtrackEnabled');
     if (storedPreference === 'false') setEnabled(false);
+  }, []);
 
-    const audio = new Audio('/audio/room-one-soundtrack.mp3');
-    audio.loop = true;
-    audio.preload = 'auto';
-    audio.volume = 0;
-    audioRef.current = audio;
+  useEffect(() => {
+    if (!currentTrack) return;
+
+    if (currentTrackSrcRef.current !== currentTrack.src) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+      const audio = new Audio(currentTrack.src);
+      audio.loop = true;
+      audio.preload = 'auto';
+      audio.volume = 0;
+      audioRef.current = audio;
+      currentTrackSrcRef.current = currentTrack.src;
+    }
 
     return () => {
-      audio.pause();
-      audio.currentTime = 0;
-      audioRef.current = null;
+      // Keep track ref alive during sub-renders unless room/track actually changes
+    };
+  }, [currentTrack?.src]);
+
+  useEffect(() => {
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current = null;
+        currentTrackSrcRef.current = null;
+      }
     };
   }, []);
 
@@ -61,7 +95,7 @@ export const RoomOneSoundtrack: React.FC = () => {
 
     if (targetVolume > 0 && hasUserInteracted) {
       void audio.play().catch(() => {
-        // Trình duyệt sẽ cho phép phát sau tương tác tiếp theo của người chơi.
+        // Browser autoplay policy allows playback after user interaction
       });
     }
 
@@ -87,17 +121,17 @@ export const RoomOneSoundtrack: React.FC = () => {
     if (nextEnabled) setHasUserInteracted(true);
   };
 
-  if (!isInRoomOne) return null;
+  if (!isInSupportedRoom) return null;
 
   return (
     <button
       type="button"
       onClick={toggleSoundtrack}
       className="absolute right-5 top-20 z-40 flex items-center gap-2 rounded-full border border-amber-500/30 bg-slate-950/90 px-3.5 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-200 shadow-xl backdrop-blur-md transition-all hover:border-amber-400/60 hover:bg-slate-900 pointer-events-auto"
-      title={enabled ? 'Tắt nhạc nền Phòng 1' : 'Bật nhạc nền Phòng 1'}
+      title={enabled ? `Tắt nhạc: ${currentTrack?.title}` : `Bật nhạc: ${currentTrack?.title}`}
     >
       <Music2 size={14} className={enabled ? 'text-amber-400' : 'text-slate-500'} />
-      <span className="hidden sm:inline">Nhạc hành trình</span>
+      <span className="hidden sm:inline">{currentTrack?.title}</span>
       {enabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
     </button>
   );
