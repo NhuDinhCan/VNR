@@ -8,6 +8,7 @@ import { MultiplayerAvatars } from './MultiplayerAvatars';
 import { PlayerCharacter } from './PlayerCharacter';
 import { useMuseum } from '@/context/MuseumContext';
 import { Exhibit } from '@/lib/db';
+import { findSceneObject } from '@/lib/sceneLookup';
 
 interface GalleryCanvasProps {
   exhibits: Exhibit[];
@@ -197,7 +198,7 @@ const CameraLerpController: React.FC = () => {
   };
 
   useFrame((state) => {
-    const player = state.scene.getObjectByName('player-character');
+    const player = findSceneObject(state.scene, 'player-character');
     if (!player) return;
 
     const px = player.position.x;
@@ -262,7 +263,7 @@ export const GalleryCanvas: React.FC<GalleryCanvasProps> = ({ exhibits, galleryI
       {/* 3D Canvas */}
       <Canvas
         shadows={false}
-        dpr={settings.preset === 'low' ? [0.5, 0.75] : [0.5, 2]}
+        dpr={settings.preset === 'low' ? [0.5, 0.75] : [0.5, 1.5]}
         gl={{ antialias: settings.preset !== 'low' }}
         camera={{ position: [0, 2.0, 14.5], fov: 60 }}
         onPointerMissed={() => setSelectedExhibit(null)}

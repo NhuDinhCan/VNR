@@ -172,11 +172,11 @@ export default function AdminDashboard() {
     if (!adminSocket) return;
     const roomName = targetRoom === 'lobby' 
       ? 'Sảnh chờ' 
-      : targetRoom === 'gallery-subsidy' ? 'Phòng 01 (Lịch sử Đảng Cộng sản Việt Nam)'
-      : targetRoom === 'gallery-three' ? 'Phòng 02 (Tiền thân & Chuẩn bị thành lập Đảng)'
+      : targetRoom === 'gallery-subsidy' ? 'Phòng 01 (Khởi nguồn Tư tưởng Hồ Chí Minh)'
+      : targetRoom === 'gallery-three' ? 'Phòng 02 (Bến Nhà Rồng 1911)'
       : targetRoom === 'gallery-ceramics' ? ROOM_THREE_DISPLAY_NAME
-      : targetRoom === 'gallery-market-economy' ? 'Phòng 04 (Đổi mới & Hội nhập Quốc tế)'
-      : 'Phòng 05 (Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển)';
+      : targetRoom === 'gallery-market-economy' ? 'Phòng 04 (Liên Xô – Quảng Châu 1923–1927)'
+      : 'Phòng 05 (Hội nghị thành lập Đảng 1930)';
 
     const confirmMsg = `Bạn có chắc chắn muốn DỊCH CHUYỂN TOÀN BỘ người chơi đang ở ngoài phòng này lập tức vào: ${roomName}?`;
     if (window.confirm(confirmMsg)) {
@@ -756,13 +756,13 @@ export default function AdminDashboard() {
             {renderAdminDoor('door-room1', 'gallery-subsidy', 'Cửa số 01: Sảnh ↔ Phòng 01')}
 
             {/* 3. PHÒNG 1 */}
-            {renderAdminRoom('gallery-subsidy', 'Phòng 01: Lịch sử Đảng Cộng sản Việt Nam', 'Các mốc lịch sử quang vinh của Đảng Cộng sản Việt Nam (1930 đến nay)', ['door-room1', 'door-room2'])}
+            {renderAdminRoom('gallery-subsidy', 'Phòng 01: Khởi nguồn Tư tưởng Hồ Chí Minh', 'Chương 1 – 2: khái niệm, cơ sở hình thành tư tưởng Hồ Chí Minh; tủ kính Hành trang lên đường', ['door-room1', 'door-room2'])}
 
             {/* 4. CỬA 2 */}
             {renderAdminDoor('door-room2', 'gallery-three', 'Cửa số 02: Phòng 01 ↔ Phòng 02')}
 
             {/* 5. PHÒNG 2 */}
-            {renderAdminRoom('gallery-three', 'Phòng 02: Tiền thân & Chuẩn bị thành lập Đảng (1920–1930)', 'Quá trình khảo nghiệm lý luận Mác - Lênin và các tổ chức cộng sản tiền thân', ['door-room2', 'door-room3'])}
+            {renderAdminRoom('gallery-three', 'Phòng 02: Bến Nhà Rồng – Ra đi tìm đường cứu nước (1911)', 'Nguyễn Tất Thành rời Bến Nhà Rồng ngày 5/6/1911 trên tàu Amiral Latouche-Tréville', ['door-room2', 'door-room3'])}
 
             {/* 6. CỬA 3 */}
             {renderAdminDoor('door-room3', 'gallery-ceramics', `Cửa số 03: Phòng 02 ↔ ${ROOM_THREE_DISPLAY_NAME}`)}
@@ -774,13 +774,13 @@ export default function AdminDashboard() {
             {renderAdminDoor('door-room4', 'gallery-market-economy', `Cửa số 04: ${ROOM_THREE_DISPLAY_NAME} ↔ Phòng 04`)}
 
             {/* 9. PHÒNG 4 */}
-            {renderAdminRoom('gallery-market-economy', 'Phòng 04: Đổi mới & Hội nhập Quốc tế', 'Công cuộc Đổi mới, Công nghiệp hóa và Hội nhập Quốc tế (1986-nay)', ['door-room4', 'door-room5'])}
+            {renderAdminRoom('gallery-market-economy', 'Phòng 04: Liên Xô – Quảng Châu: Chuẩn bị cho cách mạng (1923–1927)', 'Nguyễn Ái Quốc tại Liên Xô và Quảng Châu: Quốc tế Cộng sản, Hội Việt Nam Cách mạng Thanh niên, Đường Kách mệnh', ['door-room4', 'door-room5'])}
 
             {/* 10. CỬA 5 */}
             {renderAdminDoor('door-room5', 'gallery-paintings', 'Cửa số 05: Phòng 04 ↔ Phòng 05')}
 
             {/* 11. PHÒNG 5 */}
-            {renderAdminRoom('gallery-paintings', 'Phòng 05: Phòng Hội Nghị', 'Tái hiện Hội nghị hợp nhất thành lập Đảng Cộng sản Việt Nam tại Cửu Long, Hồng Kông', ['door-room5'])}
+            {renderAdminRoom('gallery-paintings', 'Phòng 05: Hội nghị thành lập Đảng Cộng sản Việt Nam (1930)', 'Tái hiện Hội nghị hợp nhất thành lập Đảng Cộng sản Việt Nam tại Cửu Long, Hồng Kông', ['door-room5'])}
           </div>
         </div>
 
@@ -1088,7 +1088,7 @@ export default function AdminDashboard() {
             <div className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-4">
               {roomOnePlayers.length === 0 ? (
                 <div className="text-center py-12 text-slate-500 text-xs">
-                  Không có người chơi nào đang ở trong Phòng 01 (Bao cấp).
+                  Không có người chơi nào đang ở trong Phòng 01.
                 </div>
               ) : (
                 <div className="border border-slate-800 bg-slate-950/50 rounded-xl overflow-hidden shadow-inner">
@@ -1171,7 +1171,7 @@ export default function AdminDashboard() {
             <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between bg-slate-950">
               <div className="flex items-center gap-2 text-amber-400 font-bold text-sm uppercase tracking-wider">
                 <Users size={16} />
-                <span>Đại biểu & Biểu quyết Phòng 05 (Đại hội VI)</span>
+                <span>Đại biểu & Biểu quyết Phòng 05 (Hội nghị 1930)</span>
               </div>
               <button
                 onClick={() => setIsRoomTwoResultsModalOpen(false)}
@@ -1185,7 +1185,7 @@ export default function AdminDashboard() {
             <div className="p-6 overflow-y-auto custom-scrollbar flex-1 space-y-4">
               {roomTwoPlayers.length === 0 ? (
                 <div className="text-center py-12 text-slate-500 text-xs">
-                  Không có đại biểu nào đang ở trong Phòng 05 (Đại hội VI).
+                  Không có đại biểu nào đang ở trong Phòng 05 (Hội nghị 1930).
                 </div>
               ) : (
                 <div className="border border-slate-800 bg-slate-950/50 rounded-xl overflow-hidden shadow-inner">

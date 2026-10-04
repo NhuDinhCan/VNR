@@ -2,8 +2,8 @@
   "galleries": [
     {
       "id": "gallery-ceramics",
-      "name": "Phòng 03: Đảng lãnh đạo các cuộc kháng chiến (1945–1975)",
-      "description": "Không gian tư liệu về vai trò lãnh đạo của Đảng Cộng sản Việt Nam trong Tổng khởi nghĩa Tháng Tám 1945, Kháng chiến chống Pháp và Kháng chiến chống Mỹ thống nhất đất nước.",
+      "name": "Phòng 03: Bản Yêu sách của nhân dân An Nam (Paris, 1919)",
+      "description": "Năm 1919, Nguyễn Ái Quốc gửi tới Hội nghị Versailles bản Yêu sách của nhân dân An Nam gồm 8 điểm đòi quyền bình đẳng, tự do báo chí, tự do lập hội và quyền đại biểu – bước khởi đầu của tư tưởng về quyền dân tộc tự quyết.",
       "scene_asset_url": "",
       "is_active": true,
       "room_width": 30,

@@ -49,10 +49,10 @@ export const ROOM_FOUR_FLAG_FRAMES: readonly RoomFourFlagFrame[] = [
     rotation: [0, -Math.PI / 2, 0],
     dimensions: [6.2, 4.133333333333334],
     textureSrc: '/images/room4/flags/soviet-flag-framed.png',
-    titleVi: 'ĐẠI HỘI VI · ĐỔI MỚI',
-    titleEn: '6TH CONGRESS · DOI MOI',
-    timelineVi: '12/1986',
-    timelineEn: 'Dec 1986',
+    titleVi: 'LIÊN XÔ',
+    titleEn: 'SOVIET UNION',
+    timelineVi: '1923–1924',
+    timelineEn: '1923–1924',
   },
   {
     id: 'guangdong-zone',
@@ -63,10 +63,10 @@ export const ROOM_FOUR_FLAG_FRAMES: readonly RoomFourFlagFrame[] = [
     rotation: [0, Math.PI / 2, 0],
     dimensions: [6.2, 4.133333333333334],
     textureSrc: '/images/room4/flags/china-flag-framed.png',
-    titleVi: 'HỘI NHẬP QUỐC TẾ',
-    titleEn: 'INTERNATIONAL INTEGRATION',
-    timelineVi: '1986–NAY',
-    timelineEn: '1986–PRESENT',
+    titleVi: 'QUẢNG CHÂU, TRUNG QUỐC',
+    titleEn: 'GUANGZHOU, CHINA',
+    timelineVi: '1924–1927',
+    timelineEn: '1924–1927',
   },
 ] as const;
 
@@ -85,17 +85,16 @@ export const ROOM_FOUR_QUOTE_PANELS: readonly RoomFourQuotePanel[] = [
     // Slightly oversized to give the three-line quotation a clear margin on all sides.
     dimensions: [13.2, 2.95],
     quoteLinesVi: [
-      '“Nhìn thẳng vào sự thật, đánh giá đúng sự thật,',
-      'nói rõ sự thật — Khởi xướng đường lối Đổi mới',
-      'toàn diện và sâu sắc nền kinh tế đất nước.”',
+      '“Vận mệnh của giai cấp vô sản thế giới và đặc biệt là vận mệnh',
+      'của giai cấp vô sản ở các nước đi xâm lược thuộc địa gắn chặt',
+      'với vận mệnh của giai cấp bị áp bức ở các thuộc địa”',
     ],
     quoteLinesEn: [
-      '“Look directly at the truth, evaluate truth accurately,',
-      'and state the truth clearly — Initiating comprehensive',
-      'and deep economic reform for the country.”',
+      '“The fate of the world proletariat is closely tied',
+      'to the fate of the oppressed in the colonies.”',
     ],
-    attributionVi: 'Tổng Bí thư Nguyễn Văn Linh — Đại hội VI của Đảng (12/1986)',
-    attributionEn: '— General Secretary Nguyen Van Linh (1986)',
+    attributionVi: 'Nguyễn Ái Quốc (Hồ Chí Minh) tại Đại hội lần thứ V của Quốc tế Cộng sản năm 1924',
+    attributionEn: '— Nguyen Ai Quoc',
   },
   {
     id: 'guangzhou-quote',
@@ -106,17 +105,15 @@ export const ROOM_FOUR_QUOTE_PANELS: readonly RoomFourQuotePanel[] = [
     // Match the Soviet quote panel so both opposing-wall displays align.
     dimensions: [13.2, 2.95],
     quoteLinesVi: [
-      '“Việt Nam sẵn sàng là bạn, là đối tác tin cậy',
-      'và là thành viên có trách nhiệm trong cộng đồng',
-      'quốc tế vì hòa bình, hợp tác và phát triển.”',
+      '“Đảng có vững cách mệnh mới thành công, cũng như',
+      'người cầm lái có vững thuyền mới chạy.”',
     ],
     quoteLinesEn: [
-      '“Vietnam is ready to be a friend, a reliable partner',
-      'and a responsible member of the international community',
-      'for peace, cooperation, and development.”',
+      '“A revolution succeeds with a firm party,',
+      'just as a boat moves with a steady helmsman.”',
     ],
-    attributionVi: 'Đường lối đối ngoại của Đảng Cộng sản Việt Nam',
-    attributionEn: '— Foreign Policy of the Communist Party of Vietnam',
+    attributionVi: '— Nguyễn Ái Quốc',
+    attributionEn: '— Nguyen Ai Quoc',
   },
 ] as const;
 

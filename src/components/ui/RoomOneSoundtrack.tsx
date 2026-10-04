@@ -4,6 +4,15 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Music2, Volume2, VolumeX } from 'lucide-react';
 import { useMuseum } from '@/context/MuseumContext';
 
+// Nhạc nền về Chủ tịch Hồ Chí Minh cho Phòng 01–04. Phòng 05 (phòng họp) cố ý không có nhạc.
+// Đặt file mp3 đúng tên vào public/audio/ để phát.
+const ROOM_TRACKS: Record<string, { src: string; title: string }> = {
+  'gallery-subsidy': { src: '/audio/tuoi-tre-the-he-ho-chi-minh.mp3', title: 'Tuổi trẻ thế hệ Hồ Chí Minh' },
+  'gallery-three': { src: '/audio/nguoi-la-niem-tin-tat-thang.mp3', title: 'Người là niềm tin tất thắng' },
+  'gallery-ceramics': { src: '/audio/bac-dang-cung-chung-chau-hanh-quan.mp3', title: 'Bác đang cùng chúng cháu hành quân' },
+  'gallery-market-economy': { src: '/audio/ca-ngoi-ho-chu-tich.mp3', title: 'Ca ngợi Hồ Chủ tịch' },
+};
+
 const NORMAL_VOLUME = 0.18;
 const DUCKED_VOLUME = 0.055;
 const FADE_STEP = 0.018;
@@ -22,17 +31,9 @@ export const RoomOneSoundtrack: React.FC = () => {
 
   const activeRoomId = currentRoom || activeGallery?.id || 'gallery-subsidy';
   
-  const getTrackForRoom = (roomId: string) => {
-    if (roomId === 'gallery-subsidy') {
-      return { src: '/audio/room-one-soundtrack.mp3', title: 'Nhạc nền Phòng 01' };
-    }
-    if (['gallery-three', 'gallery-ceramics', 'gallery-market-economy'].includes(roomId)) {
-      return { src: '/audio/tien-buoc-duoi-quan-ky.mp3', title: 'Tiến bước dưới quân kỳ' };
-    }
-    return null;
-  };
-
-  const currentTrack = getTrackForRoom(activeRoomId);
+  const [missingSrcs, setMissingSrcs] = useState<string[]>([]);
+  const currentTrack = ROOM_TRACKS[activeRoomId] ?? null;
+  const isMissing = !!currentTrack && missingSrcs.includes(currentTrack.src);
   const isInSupportedRoom = Boolean(currentTrack);
   const shouldDuck = Boolean(selectedExhibit) || audioPlaying;
   const targetVolume = !enabled || !isInSupportedRoom
@@ -55,6 +56,11 @@ export const RoomOneSoundtrack: React.FC = () => {
         audioRef.current = null;
       }
       const audio = new Audio(currentTrack.src);
+      const missingSrc = currentTrack.src;
+      // Chưa chép file mp3 vào public/audio → báo trên nút thay vì im lặng.
+      audio.addEventListener('error', () => {
+        setMissingSrcs((prev) => (prev.includes(missingSrc) ? prev : [...prev, missingSrc]));
+      });
       audio.loop = true;
       audio.preload = 'auto';
       audio.volume = 0;
@@ -128,10 +134,12 @@ export const RoomOneSoundtrack: React.FC = () => {
       type="button"
       onClick={toggleSoundtrack}
       className="absolute right-5 top-20 z-40 flex items-center gap-2 rounded-full border border-amber-500/30 bg-slate-950/90 px-3.5 py-2 text-[10px] font-bold uppercase tracking-wider text-amber-200 shadow-xl backdrop-blur-md transition-all hover:border-amber-400/60 hover:bg-slate-900 pointer-events-auto"
-      title={enabled ? `Tắt nhạc: ${currentTrack?.title}` : `Bật nhạc: ${currentTrack?.title}`}
+      title={isMissing
+        ? `Thiếu file nhạc: hãy chép ${currentTrack?.src.replace('/audio/', '')} vào thư mục public/audio`
+        : enabled ? `Tắt nhạc: ${currentTrack?.title}` : `Bật nhạc: ${currentTrack?.title}`}
     >
-      <Music2 size={14} className={enabled ? 'text-amber-400' : 'text-slate-500'} />
-      <span className="hidden sm:inline">{currentTrack?.title}</span>
+      <Music2 size={14} className={enabled && !isMissing ? 'text-amber-400' : 'text-slate-500'} />
+      <span className="hidden sm:inline">{isMissing ? `Thiếu file nhạc: ${currentTrack?.title}` : currentTrack?.title}</span>
       {enabled ? <Volume2 size={14} /> : <VolumeX size={14} />}
     </button>
   );

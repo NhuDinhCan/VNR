@@ -2,7 +2,7 @@
 
 import React, { Suspense, useRef, useEffect, useState, useCallback, useMemo } from 'react';
 import { Canvas, useThree, useFrame } from '@react-three/fiber';
-import { AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
+import { AdaptiveEvents, Html, PerformanceMonitor } from '@react-three/drei';
 import * as THREE from 'three';
 import { useRouter } from 'next/navigation';
 import { useMuseum } from '@/context/MuseumContext';
@@ -28,6 +28,10 @@ import {
   ROOM_THREE_DISPLAY_NAME,
 } from '@/lib/roomThreeNarrative';
 import { createTeleportMovePayload } from '@/lib/teleportSync';
+import { findSceneObject } from '@/lib/sceneLookup';
+import { avatarColorFor } from '@/lib/avatarColor';
+import { CHAT_BUBBLE_CLASS, syncChatBubble, type ChatBubbleSyncState } from '@/components/3d/chatBubble';
+import { LobbyChat } from '@/components/ui/LobbyChat';
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CÁC HẰNG SỐ CỦA SẢNH
@@ -36,7 +40,6 @@ const LOBBY_W = 30;
 const LOBBY_L = 20;
 const LOBBY_H = 12;
 
-const MU_RED = '#da291c';
 const MU_BLACK = '#101114';
 const MU_GOLD = '#f5c542';
 const MU_BADGE_RED = '#b51922';
@@ -71,14 +74,14 @@ const DOOR_CONFIGS = [
     // Cửa đặt ở tường sau sảnh, tầng 2 (Y=3, Z=8)
     position: [0, 3.0, 8.0] as [number, number, number],
     rotation: [0, Math.PI, 0] as [number, number, number],
-    label: 'Phòng 01: Lịch sử Đảng Cộng sản Việt Nam',
+    label: 'Phòng 01: Khởi nguồn Tư tưởng Hồ Chí Minh',
   },
   {
     doorId: 'door-room2',
     targetRoom: 'gallery-three',
     position: [0, 3.0, roomFiveSpatial.worldStartZ] as [number, number, number],
     rotation: [0, Math.PI, 0] as [number, number, number],
-    label: 'Phòng 02: Tiền thân & Chuẩn bị thành lập Đảng (1920-1930)',
+    label: 'Phòng 02: Bến Nhà Rồng – Ra đi tìm đường cứu nước (1911)',
   },
   {
     doorId: 'door-room3',
@@ -92,23 +95,23 @@ const DOOR_CONFIGS = [
     targetRoom: 'gallery-market-economy',
     position: [0, 3.0, roomFourSpatial.worldStartZ] as [number, number, number],
     rotation: [0, Math.PI, 0] as [number, number, number],
-    label: 'Phòng 04: Đổi mới & Hội nhập Quốc tế (1986-nay)',
+    label: 'Phòng 04: Liên Xô – Quảng Châu: Chuẩn bị cho cách mạng (1923–1927)',
   },
   {
     doorId: 'door-room5',
     targetRoom: 'gallery-paintings',
     position: [0, 3.0, roomFourSpatial.worldEndZ] as [number, number, number],
     rotation: [0, Math.PI, 0] as [number, number, number],
-    label: 'Phòng 05: Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển',
+    label: 'Phòng 05: Hội nghị thành lập Đảng Cộng sản Việt Nam (1930)',
   },
 ];
 
 const TRANSITION_ROOM_TITLES: Record<string, string> = {
-  'gallery-subsidy': 'Phòng 1: LỊCH SỬ ĐẢNG CỘNG SẢN VIỆT NAM',
-  'gallery-three': 'Phòng 2: TIỀN THÂN & CHUẨN BỊ THÀNH LẬP ĐẢNG',
-  'gallery-ceramics': 'Phòng 3: ĐẢNG LÃNH ĐẠO CÁC CUỘC KHÁNG CHIẾN',
-  'gallery-market-economy': 'Phòng 4: ĐỔI MỚI & HỘI NHẬP QUỐC TẾ',
-  'gallery-paintings': 'Phòng 5: CÁC KỲ ĐẠI HỘI ĐẢNG & TẦM NHÌN PHÁT TRIỂN',
+  'gallery-subsidy': 'Phòng 1: KHỞI NGUỒN TƯ TƯỞNG HỒ CHÍ MINH',
+  'gallery-three': 'Phòng 2: BẾN NHÀ RỒNG – RA ĐI TÌM ĐƯỜNG CỨU NƯỚC',
+  'gallery-ceramics': 'Phòng 3: BẢN YÊU SÁCH CỦA NHÂN DÂN AN NAM',
+  'gallery-market-economy': 'Phòng 4: LIÊN XÔ – QUẢNG CHÂU (1923–1927)',
+  'gallery-paintings': 'Phòng 5: HỘI NGHỊ THÀNH LẬP ĐẢNG (1930)',
 };
 
 // Cấu hình các cổng cửa dịch chuyển tương tác khi đứng gần và nhấn E (Tách phòng độc lập)
@@ -121,8 +124,8 @@ const INTERACTIVE_DOORS = [
     doorId: 'door-room1',
     check: (x: number, z: number) => z >= 6.0 && z <= 8.0 && Math.abs(x) < 2.2,
     spawnPos: [0, 3.0, 10.0] as [number, number, number],
-    promptVi: 'vào Phòng 01: Lịch sử Đảng Cộng sản Việt Nam',
-    promptEn: 'enter Room 01: Subsidy Room'
+    promptVi: 'vào Phòng 01: Khởi nguồn Tư tưởng Hồ Chí Minh',
+    promptEn: 'enter Room 01: Roots of Ho Chi Minh Thought'
   },
   {
     id: 'room1-to-lobby',
@@ -164,7 +167,7 @@ const INTERACTIVE_DOORS = [
     check: (x: number, z: number) => z >= roomFiveSpatial.worldEndZ - 2 && z <= roomFiveSpatial.worldEndZ && Math.abs(x) < 2.2,
     spawnPos: [0, 3.0, 152.0] as [number, number, number],
     promptVi: `vào ${ROOM_THREE_DISPLAY_NAME}`,
-    promptEn: 'enter Room 03: Integration Room'
+    promptEn: 'enter Room 03: Demands of the Annamese People (1919)'
   },
   {
     id: 'room3-to-room2',
@@ -184,7 +187,7 @@ const INTERACTIVE_DOORS = [
     doorId: 'door-room4',
     check: (x: number, z: number) => z >= roomFourSpatial.worldStartZ - 2 && z <= roomFourSpatial.worldStartZ && Math.abs(x) < 2.2,
     spawnPos: [0, 3.0, roomFourSpatial.spawnWorldZ] as [number, number, number],
-    promptVi: 'vào Phòng 04: Đổi mới & Hội nhập Quốc tế',
+    promptVi: 'vào Phòng 04: Liên Xô – Quảng Châu (1923–1927)',
     promptEn: 'enter Room 04: Doi Moi & International Integration'
   },
   {
@@ -205,8 +208,8 @@ const INTERACTIVE_DOORS = [
     doorId: 'door-room5',
     check: (x: number, z: number) => z >= roomFourSpatial.worldEndZ - 2 && z <= roomFourSpatial.worldEndZ && Math.abs(x) < 2.2,
     spawnPos: [0, 3.0, 106.0] as [number, number, number],
-    promptVi: 'vào Phòng 05: Phòng Hội Nghị',
-    promptEn: 'enter Room 05: Conference Room'
+    promptVi: 'vào Phòng 05: Hội nghị thành lập Đảng (1930)',
+    promptEn: 'enter Room 05: Party Founding Conference (1930)'
   },
   {
     id: 'room5-to-room4',
@@ -303,6 +306,9 @@ const LobbyCameraController: React.FC = () => {
     // Hỗ trợ phím tắt Z/C cho những máy dùng Touchpad không click chuột phải được dễ dàng
     const handleKeyDown = (e: KeyboardEvent) => {
       if (roomFourInteractionOpen) return;
+      // Không zoom khi đang gõ chat hoặc nhập liệu.
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable)) return;
       if (e.code === 'KeyZ' || e.code === 'KeyC') {
         isZooming.current = true;
       }
@@ -382,7 +388,7 @@ const LobbyCameraController: React.FC = () => {
       persCam.updateProjectionMatrix();
     }
 
-    const player = state.scene.getObjectByName('lobby-player');
+    const player = findSceneObject(state.scene, 'lobby-player');
     if (!player) return;
 
     const px = player.position.x;
@@ -565,10 +571,16 @@ const LobbyPlayer: React.FC<{
   const rightArmRef = useRef<THREE.Group>(null);
   const headRef = useRef<THREE.Group>(null);
 
-  const { settings, doorStates, loadedRooms, teleportTarget, setTeleportTarget, clearTeleport, currentRoom, setCurrentRoom, socket, selectedExhibit, sittingPosition, setSittingPosition, sittingPrompt, setSittingPrompt, roomOneLocked, roomOneCompleted, roomTwoDocOpen, setRoomTwoDocOpen, roomTwoScore, language, roomFourInteractionOpen } = useMuseum();
+  const { settings, doorStates, loadedRooms, teleportTarget, setTeleportTarget, clearTeleport, currentRoom, setCurrentRoom, socket, selectedExhibit, sittingPosition, setSittingPosition, sittingPrompt, setSittingPrompt, roomOneLocked, roomOneCompleted, roomTwoDocOpen, setRoomTwoDocOpen, roomTwoScore, language, roomFourInteractionOpen, chatBubbles, nickname, otherUsersPositions, myColorIndex } = useMuseum();
   const isPawn = settings.preset === 'low';
   const baseY = isPawn ? 0.24 : 0.472;
   const lastUpdate = useRef(0);
+  // Vị trí đã gửi gần nhất: đứng yên thì không gửi liên tục, chỉ gửi nhịp duy trì.
+  const lastSentMove = useRef({ x: NaN, y: NaN, z: NaN, yaw: NaN, at: 0 });
+  const ownBubbleRef = useRef<HTMLDivElement>(null);
+  // Mỗi người một màu áo (tính từ biệt danh, giống hệt trên máy người khác).
+  const shirtColor = avatarColorFor(nickname, myColorIndex);
+  const ownBubbleSync = useRef<ChatBubbleSyncState>({ seq: 0, shown: false }).current;
 
   const frontVec = useRef(new THREE.Vector3()).current;
   const rightVec = useRef(new THREE.Vector3()).current;
@@ -927,6 +939,13 @@ const LobbyPlayer: React.FC<{
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
+      // Đang gõ chat: WASD dùng để gõ chữ, phím mũi tên vẫn điều khiển nhân vật để vừa đi vừa chat.
+      const isChatArrow = (e.target as HTMLElement | null)?.id === 'lobby-chat-input' && e.code.startsWith('Arrow');
+      if (isChatArrow) {
+        e.preventDefault();
+        keys.current[movementKeyMap[e.code] as 'w' | 'a' | 's' | 'd'] = true;
+        return;
+      }
       if (shouldIgnoreKeyboard(e.target)) return;
 
       if (e.code === 'KeyE') {
@@ -1029,6 +1048,9 @@ const LobbyPlayer: React.FC<{
 
   useFrame((state, delta) => {
     if (!playerRef.current) return;
+    if (socket?.id) {
+      syncChatBubble(ownBubbleRef.current, chatBubbles.current[socket.id], ownBubbleSync, Date.now());
+    }
     if (selectedExhibit || transitionLoading || roomFourInteractionOpen || roomOneLocked) return;
 
     // Xử lý dịch chuyển tức thời khi đứng dậy để tránh trễ đồng bộ React state
@@ -1044,9 +1066,15 @@ const LobbyPlayer: React.FC<{
       if (sittingPrompt !== 'stand') setSittingPrompt('stand');
     } else {
       if (pPos.z > 104.0 && pPos.z <= 150.0) {
+        // Ghế đang có người khác ngồi thì bỏ qua để nhiều người cùng ngồi mà không chồng lên nhau.
+        const occupiedSeats: Array<{ x: number; z: number }> = [];
+        for (const other of Object.values(otherUsersPositions.current)) {
+          if (other.isSitting) occupiedSeats.push({ x: other.x, z: other.z });
+        }
         let minDist = Infinity;
         let closest: { x: number; y: number; z: number } | null = null;
         for (const chair of ROOM2_CHAIRS) {
+          if (occupiedSeats.some((seat) => Math.abs(seat.x - chair.x) < 0.3 && Math.abs(seat.z - chair.z) < 0.3)) continue;
           const dx = pPos.x - chair.x;
           const dz = pPos.z - chair.z;
           const dist = Math.sqrt(dx * dx + dz * dz);
@@ -1110,7 +1138,7 @@ const LobbyPlayer: React.FC<{
       }
 
       // Tính góc xoay đầu thực tế của camera so với hướng thẳng của thân
-      const camDir = new THREE.Vector3();
+      const camDir = frontVec;
       state.camera.getWorldDirection(camDir);
       const camYaw = Math.atan2(-camDir.x, -camDir.z);
       let hDiff = camYaw - (bodyYaw + Math.PI); // Bù 180 độ vì camera hướng ngược chiều với mặt trước của body mặc định
@@ -1209,18 +1237,23 @@ const LobbyPlayer: React.FC<{
     }
 
     // Cập nhật phòng hiện tại dựa trên vị trí tuần tự trục Z
+    // Chỉ gọi setState khi thực sự đổi phòng, tránh đẩy cập nhật React mỗi khung hình.
+    let roomAtPosition: string | null = null;
     if (curPos.z <= 8.0) {
-      setCurrentRoom('lobby');
+      roomAtPosition = 'lobby';
     } else if (curPos.z > 8.0 && curPos.z <= 54.0) {
-      setCurrentRoom('gallery-subsidy');
+      roomAtPosition = 'gallery-subsidy';
     } else if (curPos.z > roomFiveSpatial.worldStartZ && curPos.z <= roomFiveSpatial.worldEndZ) {
-      setCurrentRoom('gallery-three');
+      roomAtPosition = 'gallery-three';
     } else if (curPos.z > 104.0 && curPos.z <= 150.0) {
-      setCurrentRoom('gallery-paintings');
+      roomAtPosition = 'gallery-paintings';
     } else if (curPos.z > 150.0 && curPos.z <= 180.0) {
-      setCurrentRoom('gallery-ceramics');
+      roomAtPosition = 'gallery-ceramics';
     } else if (curPos.z > roomFourSpatial.worldStartZ && curPos.z <= roomFourSpatial.worldEndZ) {
-      setCurrentRoom('gallery-market-economy');
+      roomAtPosition = 'gallery-market-economy';
+    }
+    if (roomAtPosition && roomAtPosition !== currentRoom) {
+      setCurrentRoom(roomAtPosition);
     }
 
     // Arm/Leg swing
@@ -1260,13 +1293,26 @@ const LobbyPlayer: React.FC<{
     const now = state.clock.getElapsedTime() * 1000;
     if (now - lastUpdate.current > 80) {
       if (socket && socket.connected) {
-        socket.emit("move", {
-          x: playerRef.current.position.x,
-          y: playerRef.current.position.y - baseY, // Gửi tọa độ Y logic (bàn chân chạm đất)
-          z: playerRef.current.position.z,
-          yaw: playerRef.current.rotation.y,
-          isSitting: false,
-        });
+        const pos = playerRef.current.position;
+        const yaw = playerRef.current.rotation.y;
+        const last = lastSentMove.current;
+        const changed =
+          Math.abs(pos.x - last.x) > 0.01 ||
+          Math.abs(pos.y - last.y) > 0.01 ||
+          Math.abs(pos.z - last.z) > 0.01 ||
+          Math.abs(yaw - last.yaw) > 0.01 ||
+          Number.isNaN(last.x);
+        // Khi đứng yên chỉ gửi 1 lần/giây để server và người khác không phải xử lý dữ liệu thừa.
+        if (changed || now - last.at > 1000) {
+          socket.emit("move", {
+            x: pos.x,
+            y: pos.y - baseY, // Gửi tọa độ Y logic (bàn chân chạm đất)
+            z: pos.z,
+            yaw,
+            isSitting: false,
+          });
+          lastSentMove.current = { x: pos.x, y: pos.y, z: pos.z, yaw, at: now };
+        }
       }
       lastUpdate.current = now;
     }
@@ -1319,7 +1365,7 @@ const LobbyPlayer: React.FC<{
           </mesh>
           <mesh position={[0, 0.2, 0]}>
             <cylinderGeometry args={[0.07, 0.18, 0.5, 16]} />
-            <meshStandardMaterial color={MU_RED} roughness={0.55} metalness={0} />
+            <meshStandardMaterial color={shirtColor} roughness={0.55} metalness={0} />
           </mesh>
           <mesh position={[0, 0.47, 0]} rotation={[Math.PI / 2, 0, 0]}>
             <torusGeometry args={[0.11, 0.022, 8, 16]} />
@@ -1352,7 +1398,7 @@ const LobbyPlayer: React.FC<{
           )}
           <mesh position={[0, 0.28, 0]}>
             <capsuleGeometry args={[TORSO_R, TORSO_H, 10, 20]} />
-            <meshStandardMaterial color={MU_RED} roughness={0.55} metalness={0} />
+            <meshStandardMaterial color={shirtColor} roughness={0.55} metalness={0} />
           </mesh>
           {/* Áo MU: cổ đen, chữ V đen ở cả hai mặt và huy hiệu nhỏ phía trước. */}
           <mesh position={[0, 0.49, 0]} rotation={[Math.PI / 2, 0, 0]}>
@@ -1378,13 +1424,13 @@ const LobbyPlayer: React.FC<{
           <group ref={leftArmRef} position={[-ARM_PIVOT_X, ARM_PIVOT_Y, 0]}>
             <mesh position={[0, ARM_MESH_Y, 0]}>
               <capsuleGeometry args={[ARM_R, ARM_LEN, 8, 16]} />
-              <meshStandardMaterial color={MU_RED} roughness={0.55} metalness={0} />
+              <meshStandardMaterial color={shirtColor} roughness={0.55} metalness={0} />
             </mesh>
           </group>
           <group ref={rightArmRef} position={[ARM_PIVOT_X, ARM_PIVOT_Y, 0]}>
             <mesh position={[0, ARM_MESH_Y, 0]}>
               <capsuleGeometry args={[ARM_R, ARM_LEN, 8, 16]} />
-              <meshStandardMaterial color={MU_RED} roughness={0.55} metalness={0} />
+              <meshStandardMaterial color={shirtColor} roughness={0.55} metalness={0} />
             </mesh>
           </group>
           <group ref={leftLegRef} position={[-LEG_PIVOT_X, LEG_PIVOT_Y, 0]}>
@@ -1401,6 +1447,11 @@ const LobbyPlayer: React.FC<{
           </group>
         </group>
       )}
+
+      {/* Bong bóng chat của chính mình (nội dung được cập nhật trực tiếp trong useFrame) */}
+      <Html position={[0, 1.8, 0]} center distanceFactor={8} className="pointer-events-none select-none">
+        <div ref={ownBubbleRef} className={CHAT_BUBBLE_CLASS} style={{ display: 'none' }} />
+      </Html>
     </group>
   );
 };
@@ -1437,6 +1488,8 @@ export default function LobbyPage() {
 
   // Trạng thái chuyển phòng mượt mà qua màn hình loading (Tách không gian các phòng độc lập)
   const [transitionLoading, setTransitionLoading] = useState(false);
+  // Độ phân giải render tự điều chỉnh theo FPS thực tế (0.75x – 1.5x) cho cấu hình Trung bình.
+  const [adaptiveDpr, setAdaptiveDpr] = useState(1.25);
   const [transitionRoomName, setTransitionRoomName] = useState('');
   const [transitionRoomId, setTransitionRoomId] = useState<string | null>(null);
   const [activeDoorInfo, setActiveDoorInfo] = useState<any | null>(null);
@@ -1453,11 +1506,11 @@ export default function LobbyPage() {
     }
     const ROOM_GALLERY_MAP: Record<string, { id: string; name: string }> = {
       'lobby': { id: 'lobby', name: 'Sảnh Bảo Tàng' },
-      'gallery-subsidy': { id: 'gallery-subsidy', name: 'Phòng 01: Lịch sử Đảng Cộng sản Việt Nam' },
-      'gallery-paintings': { id: 'gallery-paintings', name: 'Phòng 05: Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển' },
+      'gallery-subsidy': { id: 'gallery-subsidy', name: 'Phòng 01: Khởi nguồn Tư tưởng Hồ Chí Minh' },
+      'gallery-paintings': { id: 'gallery-paintings', name: 'Phòng 05: Hội nghị thành lập Đảng Cộng sản Việt Nam (1930)' },
       'gallery-ceramics': { id: 'gallery-ceramics', name: ROOM_THREE_DISPLAY_NAME },
-      'gallery-market-economy': { id: 'gallery-market-economy', name: 'Phòng 04: Đổi mới & Hội nhập Quốc tế' },
-      'gallery-three': { id: 'gallery-three', name: 'Phòng 02: Tiền thân & Chuẩn bị thành lập Đảng' },
+      'gallery-market-economy': { id: 'gallery-market-economy', name: 'Phòng 04: Liên Xô – Quảng Châu: Chuẩn bị cho cách mạng (1923–1927)' },
+      'gallery-three': { id: 'gallery-three', name: 'Phòng 02: Bến Nhà Rồng – Ra đi tìm đường cứu nước (1911)' },
     };
     const meta = ROOM_GALLERY_MAP[currentRoom] ?? { id: currentRoom, name: currentRoom };
     setActiveGallery({ id: meta.id, name: meta.name, description: '', scene_asset_url: '', is_active: true });
@@ -1500,11 +1553,17 @@ export default function LobbyPage() {
           <div className="w-full h-full">
             <Canvas
               shadows={false}
-              dpr={settings.preset === 'ultra-low' ? [0.3, 0.5] : settings.preset === 'low' ? [0.5, 1.0] : [0.5, 2]}
+              dpr={settings.preset === 'ultra-low' ? [0.3, 0.5] : settings.preset === 'low' ? [0.5, 1.0] : [0.5, adaptiveDpr]}
               gl={{ antialias: settings.preset === 'medium', powerPreference: 'high-performance' }}
               camera={{ position: [0, 3, -2], fov: 65 }}
             >
-              <AdaptiveDpr pixelated />
+              {/* Đo FPS liên tục: máy yếu tự hạ độ phân giải, máy khỏe tự nâng lại. */}
+              <PerformanceMonitor
+                factor={0.67}
+                flipflops={4}
+                onChange={({ factor }) => setAdaptiveDpr(Math.round((0.75 + 0.75 * factor) * 4) / 4)}
+                onFallback={() => setAdaptiveDpr(0.75)}
+              />
               <AdaptiveEvents />
               <color attach="background" args={[isRoomFourPresentation ? '#14141a' : '#0d0d12']} />
               <fog
@@ -1683,7 +1742,7 @@ export default function LobbyPage() {
                 {language === 'vi' ? 'Sảnh bảo tàng 3D' : '3D Museum Lobby'}
               </span>
               <h2 className="text-xl font-bold text-white tracking-tight mt-2">
-                {language === 'vi' ? 'Bảo tàng Lịch sử Đảng Cộng sản Việt Nam' : 'Museum of Communist Party of Vietnam History'}
+                {language === 'vi' ? 'Bảo tàng Lịch sử Hồ Chí Minh' : 'Ho Chi Minh History Museum'}
               </h2>
               <p className="text-slate-400 text-xs sm:text-sm leading-relaxed max-w-xs mx-auto">
                 {language === 'vi'
@@ -1871,6 +1930,9 @@ export default function LobbyPage() {
        <InvestigationNotebook />
 
        <RoomOneSoundtrack />
+
+      {/* ═══ KHUNG CHAT NHIỀU NGƯỜI (bong bóng hiện trên đầu nhân vật) ═══ */}
+      {entered && nickname && <LobbyChat />}
 
       {/* ═══ HUD HƯỚNG DẪN NGỒI GHẾ ĐẠI BIỂU ═══ */}
       {sittingPrompt && (

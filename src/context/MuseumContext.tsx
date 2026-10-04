@@ -27,7 +27,28 @@ export interface MultiplayerUser {
   timeSpent?: number;
   isSitting?: boolean;
   headYaw?: number;
+  /** Chỉ số màu áo do server cấp khi vào bảo tàng. */
+  colorIndex?: number;
 }
+
+export interface ChatMessage {
+  userId: string;
+  nickname: string;
+  text: string;
+  galleryId?: string;
+  sentAt?: number;
+  timestamp: string;
+}
+
+export interface ChatBubble {
+  text: string;
+  /** Thời điểm (ms, Date.now) bong bóng tự ẩn. */
+  expiresAt: number;
+  /** Tăng mỗi tin mới để avatar biết cần cập nhật DOM. */
+  seq: number;
+}
+
+export const CHAT_BUBBLE_DURATION_MS = 6000;
 
 // Vị trí spawn của các phòng trưng bày
 const SPAWN_POINTS: Record<string, { x: number; y: number; z: number }> = {
@@ -96,6 +117,11 @@ interface MuseumContextType {
   setAudioPlaying: (playing: boolean) => void;
   otherUsers: MultiplayerUser[];
   otherUsersPositions: React.MutableRefObject<Record<string, MultiplayerUser>>;
+  /** Bong bóng chat trên đầu, theo socket id. Lưu bằng ref để không re-render cả cây 3D. */
+  chatBubbles: React.MutableRefObject<Record<string, ChatBubble>>;
+  showChatBubble: (userId: string, text: string) => void;
+  /** Chỉ số màu áo server cấp cho chính mình (null khi chưa vào). */
+  myColorIndex: number | null;
   socket: Socket | null;
   localUserPos: [number, number, number];
   setLocalUserPos: (pos: [number, number, number]) => void;
@@ -206,6 +232,16 @@ export const MuseumProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   const [audioPlaying, setAudioPlaying] = useState<boolean>(false);
   const [otherUsers, setOtherUsers] = useState<MultiplayerUser[]>([]);
   const otherUsersPositions = React.useRef<Record<string, MultiplayerUser>>({});
+  const chatBubbles = React.useRef<Record<string, ChatBubble>>({});
+  const [myColorIndex, setMyColorIndex] = useState<number | null>(null);
+  const showChatBubble = useCallback((userId: string, text: string) => {
+    const prev = chatBubbles.current[userId];
+    chatBubbles.current[userId] = {
+      text,
+      expiresAt: Date.now() + CHAT_BUBBLE_DURATION_MS,
+      seq: (prev?.seq ?? 0) + 1,
+    };
+  }, []);
   const hasJoinedRef = React.useRef<boolean>(false);
   const loadedRoomIdsRef = React.useRef<Set<string>>(new Set());
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -698,7 +734,10 @@ export const MuseumProvider: React.FC<{ children: React.ReactNode }> = ({ childr
   // ═══════════════════════════════════════════════════════════════════════════
   useEffect(() => {
     // Kết nối socket ngay khi provider mount (cho cả lobby và gallery)
-    const socketUrl = process.env.NEXT_PUBLIC_WS_URL || 'http://localhost:3001';
+    // Không cấu hình thì dùng cùng host với trang web: máy khác trong mạng LAN (vd 192.168.x.x:3000)
+    // sẽ kết nối đúng server 3001 của máy chủ thay vì localhost của chính họ.
+    const socketUrl = process.env.NEXT_PUBLIC_WS_URL
+      || `${window.location.protocol}//${window.location.hostname}:3001`;
     const newSocket = io(socketUrl, {
       transports: ['websocket'],
       autoConnect: true,
@@ -776,7 +815,8 @@ export const MuseumProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     });
 
     // ── Multiplayer Events ──
-    newSocket.on('join-success', () => {
+    newSocket.on('join-success', (data?: { colorIndex?: number }) => {
+      if (typeof data?.colorIndex === 'number') setMyColorIndex(data.colorIndex);
       setInQueue(false);
       setQueuePosition(0);
       setIsAdmitted(true);
@@ -788,7 +828,8 @@ export const MuseumProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       setIsAdmitted(false);
     });
 
-    newSocket.on('admitted', () => {
+    newSocket.on('admitted', (data?: { colorIndex?: number }) => {
+      if (typeof data?.colorIndex === 'number') setMyColorIndex(data.colorIndex);
       setInQueue(false);
       setQueuePosition(0);
       setIsAdmitted(true);
@@ -816,15 +857,24 @@ export const MuseumProvider: React.FC<{ children: React.ReactNode }> = ({ childr
     });
 
     // Batch handler — nhận tất cả vị trí thay đổi trong 1 event (10Hz flush từ server)
-    newSocket.on('users-batch-moved', (users: MultiplayerUser[]) => {
+    newSocket.on('users-batch-moved', (users: Array<Partial<MultiplayerUser> & { id: string }>) => {
+      // Server chỉ gửi trường chuyển động; gộp vào bản ghi đầy đủ để giữ nickname/status.
       for (const user of users) {
-        otherUsersPositions.current[user.id] = user;
+        const prev = otherUsersPositions.current[user.id];
+        otherUsersPositions.current[user.id] = prev
+          ? { ...prev, ...user }
+          : (user as MultiplayerUser);
       }
+    });
+
+    newSocket.on('receive-message', (msg: ChatMessage) => {
+      showChatBubble(msg.userId, msg.text);
     });
 
     newSocket.on('user-left', (userId: string) => {
       setOtherUsers(prev => prev.filter(u => u.id !== userId));
       delete otherUsersPositions.current[userId];
+      delete chatBubbles.current[userId];
     });
 
     newSocket.on('user-status-updated', (data: { id: string; status: string }) => {
@@ -1043,6 +1093,9 @@ export const MuseumProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         socket,
         otherUsers,
         otherUsersPositions,
+        chatBubbles,
+        showChatBubble,
+        myColorIndex,
         inQueue,
         setInQueue,
         queuePosition,

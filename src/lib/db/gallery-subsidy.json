@@ -2,8 +2,8 @@
   "galleries": [
     {
       "id": "gallery-subsidy",
-      "name": "Phòng Lịch sử Đảng Cộng sản Việt Nam",
-      "description": "Các mốc lịch sử quang vinh của Đảng Cộng sản Việt Nam (1930 đến nay)",
+      "name": "Phòng 01: Khởi nguồn Tư tưởng Hồ Chí Minh",
+      "description": "Chương 1 – 2 giáo trình: khái niệm, đối tượng, phương pháp nghiên cứu; cơ sở thực tiễn, cơ sở lý luận và nhân tố chủ quan hình thành tư tưởng Hồ Chí Minh trước khi Người ra đi tìm đường cứu nước (1911)",
       "scene_asset_url": "",
       "is_active": true,
       "room_width": 24,
@@ -21,19 +21,19 @@
       "id": "exhibit-coupon",
       "gallery_id": "gallery-subsidy",
       "title": {
-        "vi": "THÀNH LẬP ĐẢNG",
-        "en": "FOUNDING OF THE PARTY"
+        "vi": "1 · KHÁI NIỆM TƯ TƯỞNG HỒ CHÍ MINH",
+        "en": "1 · THE CONCEPT OF HO CHI MINH THOUGHT"
       },
       "author": {
-        "vi": "Hồng Kông – 03/02/1930",
-        "en": "Hong Kong – 03 February 1930"
+        "vi": "Chương 1 – Khái niệm tư tưởng Hồ Chí Minh",
+        "en": "Chapter 1 – The concept of Ho Chi Minh Thought"
       },
       "description": {
-        "vi": "Ngày 3/2/1930, Hội nghị hợp nhất các tổ chức cộng sản tại Cửu Long (Hồng Kông) do Nguyễn Ái Quốc chủ trì đã thông qua Chánh cương tắt, Sách lược tắt, Điều lệ tắt, chính thức thành lập Đảng Cộng sản Việt Nam. Đây là bước ngoặt vĩ đại trong lịch sử cách mạng nước ta.",
-        "en": "On 3 February 1930, the unification conference chaired by Nguyễn Ái Quốc in Hong Kong officially founded the Communist Party of Vietnam, marking a great turning point in Vietnamese revolutionary history."
+        "vi": "Tư tưởng Hồ Chí Minh là một hệ thống quan điểm toàn diện và sâu sắc về những vấn đề cơ bản của cách mạng Việt Nam; là kết quả của sự vận dụng và phát triển sáng tạo chủ nghĩa Mác – Lênin vào điều kiện cụ thể của nước ta, kế thừa và phát triển các giá trị truyền thống tốt đẹp của dân tộc, tiếp thu tinh hoa văn hóa nhân loại; là tài sản tinh thần vô cùng to lớn và quý giá của Đảng và dân tộc ta, mãi mãi soi đường cho sự nghiệp cách mạng của nhân dân ta giành thắng lợi.",
+        "en": "Ho Chi Minh Thought is a comprehensive system of views on the fundamental issues of the Vietnamese revolution — the creative application of Marxism–Leninism to Vietnam, inheriting national traditions and absorbing the quintessence of human culture."
       },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/thanh-lap-dang-1930.png",
+      "thumbnail_url": "/exhibits/hcm/r1-01-khai-niem.jpg",
       "coordinate_x": -11.8,
       "coordinate_y": 3.65,
       "coordinate_z": -17.25,
@@ -45,76 +45,22 @@
       "scale_z": 0.1
     },
     {
-      "id": "exhibit-world-1911-1917",
-      "gallery_id": "gallery-subsidy",
-      "title": {
-        "vi": "XÔ VIẾT NGHỆ TĨNH",
-        "en": "XO VIET NGHE TINH MOVEMENT"
-      },
-      "author": {
-        "vi": "1930–1931 – Cao trào cách mạng đầu tiên",
-        "en": "1930–1931 – First Revolutionary Wave"
-      },
-      "description": {
-        "vi": "Dưới sự lãnh đạo của Đảng Cộng sản Việt Nam, phong trào cách mạng 1930–1931 đỉnh cao là Xô viết Nghệ Tĩnh đã bùng nổ mạnh mẽ, khẳng định quyền lãnh đạo và năng lực tổ chức đấu tranh của giai cấp công nhân và nhân dân lao động.",
-        "en": "Under the leadership of the Party, the 1930–1931 revolutionary wave culminating in the Xo Viet Nghe Tinh movement demonstrated the fighting capacity of the working class."
-      },
-      "model_3d_url": "",
-      "thumbnail_url": "/exhibits/xo-viet-nghe-tinh.png",
-      "coordinate_x": -11.75,
-      "coordinate_y": 2.85,
-      "coordinate_z": 0,
-      "rotation_x": 0,
-      "rotation_y": 1.5708,
-      "rotation_z": 0,
-      "scale_x": 3.55,
-      "scale_y": 2.75,
-      "scale_z": 0.1
-    },
-    {
-      "id": "exhibit-versailles-1919",
-      "gallery_id": "gallery-subsidy",
-      "title": {
-        "vi": "PHONG TRÀO DÂN CHỦ",
-        "en": "DEMOCRATIC MOVEMENT"
-      },
-      "author": {
-        "vi": "1936–1939 – Đòi dân sinh, dân chủ",
-        "en": "1936–1939 – Demand for Civil Rights"
-      },
-      "description": {
-        "vi": "Giai đoạn 1936–1939, Đảng phát động phong trào đấu tranh rộng lớn đòi tự do, dân sinh, dân chủ, cơm áo, hòa bình, tập hợp đông đảo quần chúng nhân dân chống chủ nghĩa phát xít và thực dân phản động.",
-        "en": "During 1936–1939, the Party launched a broad democratic movement demanding freedom, livelihoods, and peace, mobilizing the masses against fascism and reactionaries."
-      },
-      "model_3d_url": "",
-      "thumbnail_url": "/exhibits/phong-trao-dan-chu-1936.png",
-      "coordinate_x": -11.75,
-      "coordinate_y": 2.85,
-      "coordinate_z": 16,
-      "rotation_x": 0,
-      "rotation_y": 1.5708,
-      "rotation_z": 0,
-      "scale_x": 3.55,
-      "scale_y": 2.75,
-      "scale_z": 0.1
-    },
-    {
       "id": "exhibit-lenin-theses-1920",
       "gallery_id": "gallery-subsidy",
       "title": {
-        "vi": "CÁCH MẠNG THÁNG TÁM",
-        "en": "AUGUST REVOLUTION"
+        "vi": "2 · ĐỐI TƯỢNG, PHƯƠNG PHÁP & Ý NGHĨA HỌC TẬP",
+        "en": "2 · SUBJECT, METHODS & SIGNIFICANCE OF STUDY"
       },
       "author": {
-        "vi": "Tháng 8/1945 – Khai sinh nước Việt Nam Dân chủ Cộng hòa",
-        "en": "August 1945 – Birth of Democratic Republic of Vietnam"
+        "vi": "Chương 1 – Đối tượng, phương pháp nghiên cứu và ý nghĩa học tập",
+        "en": "Chapter 1 – Subject, research methods and significance"
       },
       "description": {
-        "vi": "Dưới sự lãnh đạo sáng suốt của Đảng, toàn dân ta đã thực hiện cuộc Tổng khởi nghĩa Tháng Tám năm 1945 thành công. Ngày 2/9/1945, Bác Hồ đọc Tuyên ngôn Độc lập khai sinh nước Việt Nam Dân chủ Cộng hòa.",
-        "en": "Under the leadership of the Party, the Vietnamese people achieved the successful August Revolution in 1945. On 2 September 1945, the Declaration of Independence founded the Democratic Republic of Vietnam."
+        "vi": "Đối tượng nghiên cứu là hệ thống quan điểm, lý luận của Hồ Chí Minh về cách mạng Việt Nam và quá trình hiện thực hóa các quan điểm đó. Nghiên cứu phải bảo đảm thống nhất tính đảng và tính khoa học, lý luận gắn với thực tiễn, quan điểm lịch sử – cụ thể, toàn diện và hệ thống, kế thừa và phát triển; dựa trên nguồn tư liệu gốc là các bài nói, bài viết, tác phẩm của Người như tập thơ \"Nhật ký trong tù\". Học tập môn học giúp nâng cao năng lực tư duy lý luận và bồi dưỡng đạo đức cách mạng.",
+        "en": "The subject is Ho Chi Minh's system of views on the Vietnamese revolution; study must unite Party spirit with scientific spirit and link theory with practice, using his original works such as the \"Prison Diary\"."
       },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/cach-mang-thang-tam-1945.png",
+      "thumbnail_url": "/exhibits/hcm/r1-02-doi-tuong.jpg",
       "coordinate_x": 11.75,
       "coordinate_y": 2.85,
       "coordinate_z": -17.9,
@@ -126,22 +72,49 @@
       "scale_z": 0.1
     },
     {
+      "id": "exhibit-world-1911-1917",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "3 · CƠ SỞ THỰC TIỄN",
+        "en": "3 · PRACTICAL FOUNDATIONS"
+      },
+      "author": {
+        "vi": "Chương 2 – Việt Nam và thế giới cuối thế kỷ XIX, đầu thế kỷ XX",
+        "en": "Chapter 2 – Vietnam and the world, late 19th – early 20th century"
+      },
+      "description": {
+        "vi": "Cuối thế kỷ XIX, Việt Nam trở thành thuộc địa của thực dân Pháp. Các phong trào yêu nước theo khuynh hướng phong kiến (Cần Vương) và dân chủ tư sản – tiêu biểu là Phan Bội Châu với chủ trương dựa vào Nhật (phong trào Đông Du) và Phan Châu Trinh với chủ trương cải cách, nâng cao dân trí – đều thất bại. Cách mạng Việt Nam lâm vào khủng hoảng về đường lối cứu nước. Trên thế giới, chủ nghĩa tư bản chuyển sang chủ nghĩa đế quốc; Cách mạng Tháng Mười Nga (1917) mở ra thời đại mới. Thực tiễn ấy đặt ra yêu cầu tìm một con đường cứu nước mới.",
+        "en": "Colonised by France, Vietnam saw the patriotic movements of Phan Boi Chau and Phan Chau Trinh fail, leaving a crisis of revolutionary direction; the 1917 October Revolution opened a new era."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/hcm/r1-03-thuc-tien.jpg",
+      "coordinate_x": -11.75,
+      "coordinate_y": 2.85,
+      "coordinate_z": 0,
+      "rotation_x": 0,
+      "rotation_y": 1.5708,
+      "rotation_z": 0,
+      "scale_x": 3.55,
+      "scale_y": 2.75,
+      "scale_z": 0.1
+    },
+    {
       "id": "exhibit-tours-1920",
       "gallery_id": "gallery-subsidy",
       "title": {
-        "vi": "ĐIỆN BIÊN PHỦ 1954",
-        "en": "DIEN BIEN PHU VICTORY"
+        "vi": "4 · GIÁ TRỊ TRUYỀN THỐNG DÂN TỘC",
+        "en": "4 · NATIONAL TRADITIONS"
       },
       "author": {
-        "vi": "07/05/1954 – Lừng lẫy năm châu, chấn động địa cầu",
-        "en": "07 May 1954 – World-Resonating Victory"
+        "vi": "Chương 2 – Cơ sở lý luận: truyền thống dân tộc, quê hương và gia đình",
+        "en": "Chapter 2 – Theoretical foundation: national traditions, homeland and family"
       },
       "description": {
-        "vi": "Chiến thắng Điện Biên Phủ lịch sử năm 1954 đã đập tan tập đoàn cứ điểm của thực dân Pháp, buộc Pháp phải ký Hiệp định Giơ-ne-vơ công nhận độc lập, chủ quyền, thống nhất và toàn vẹn lãnh thổ của Việt Nam.",
-        "en": "The historical victory of Dien Bien Phu in 1954 crushed French colonial forces, compelling the signing of the Geneva Accords recognizing Vietnam's independence and sovereignty."
+        "vi": "Chủ nghĩa yêu nước là giá trị cốt lõi, là dòng chủ lưu của lịch sử dân tộc; cùng với tinh thần nhân nghĩa, đoàn kết, cần cù, hiếu học và lạc quan. Hồ Chí Minh sinh ra ở Nghệ An – vùng quê giàu truyền thống yêu nước; quê nội là làng Kim Liên (làng Sen), Nam Đàn. Thân phụ là cụ Phó bảng Nguyễn Sinh Sắc, một nhà nho yêu nước, thương dân, có ảnh hưởng lớn đến nhân cách và chí hướng của Người.",
+        "en": "Patriotism is the core value of the nation's traditions. Born in patriotic Nghe An, Ho Chi Minh was deeply shaped by his father, the Confucian scholar Nguyen Sinh Sac."
       },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/dien-bien-phu-1954.png",
+      "thumbnail_url": "/exhibits/hcm/r1-04-truyen-thong.jpg",
       "coordinate_x": 11.75,
       "coordinate_y": 2.85,
       "coordinate_z": 0,
@@ -153,22 +126,49 @@
       "scale_z": 0.1
     },
     {
+      "id": "exhibit-versailles-1919",
+      "gallery_id": "gallery-subsidy",
+      "title": {
+        "vi": "5 · TINH HOA NHÂN LOẠI & CHỦ NGHĨA MÁC – LÊNIN",
+        "en": "5 · WORLD CULTURE & MARXISM–LENINISM"
+      },
+      "author": {
+        "vi": "Chương 2 – Cơ sở lý luận: tinh hoa văn hóa nhân loại và chủ nghĩa Mác – Lênin",
+        "en": "Chapter 2 – Theoretical foundation: world culture and Marxism–Leninism"
+      },
+      "description": {
+        "vi": "Từ phương Đông, Hồ Chí Minh tiếp thu mặt tích cực của Nho giáo (tu thân, trọng đạo đức), Phật giáo (từ bi, vị tha, bác ái) và chủ nghĩa Tam dân của Tôn Trung Sơn. Từ phương Tây, Người tiếp thu tư tưởng tự do, bình đẳng, bác ái và quyền con người trong Tuyên ngôn Độc lập của Mỹ (1776), Tuyên ngôn Nhân quyền và Dân quyền của Pháp. Chủ nghĩa Mác – Lênin là cơ sở lý luận quyết định bước phát triển mới về chất, quyết định bản chất cách mạng và khoa học của tư tưởng Hồ Chí Minh.",
+        "en": "From the East he absorbed Confucian ethics, Buddhist compassion and Sun Yat-sen's Three Principles; from the West, liberty, equality and human rights. Marxism–Leninism was the decisive theoretical foundation."
+      },
+      "model_3d_url": "",
+      "thumbnail_url": "/exhibits/hcm/r1-05-mac-lenin.jpg",
+      "coordinate_x": -11.75,
+      "coordinate_y": 2.85,
+      "coordinate_z": 16,
+      "rotation_x": 0,
+      "rotation_y": 1.5708,
+      "rotation_z": 0,
+      "scale_x": 3.55,
+      "scale_y": 2.75,
+      "scale_z": 0.1
+    },
+    {
       "id": "exhibit-guangzhou-1925-1927",
       "gallery_id": "gallery-subsidy",
       "title": {
-        "vi": "ĐẠI THẮNG MÙA XUÂN 1975",
-        "en": "GREAT SPRING VICTORY 1975"
+        "vi": "6 · NHÂN TỐ CHỦ QUAN & TUỔI TRẺ TRƯỚC 1911",
+        "en": "6 · PERSONAL QUALITIES & YOUTH BEFORE 1911"
       },
       "author": {
-        "vi": "30/04/1975 – Giải phóng miền Nam, Thống nhất Đất nước",
-        "en": "30 April 1975 – National Reunification"
+        "vi": "Chương 2 – Nhân tố chủ quan; giai đoạn trước 1911: hình thành tư tưởng yêu nước",
+        "en": "Chapter 2 – Personal qualities; before 1911: forming patriotic ideals"
       },
       "description": {
-        "vi": "Cuộc Tổng tiến công và nổi dậy Mùa Xuân 1975, đỉnh cao là Chiến dịch Hồ Chí Minh, đã kết thúc thắng lợi cuộc kháng chiến chống Mỹ cứu nước, giải phóng hoàn toàn miền Nam, thu giang sơn về một mối.",
-        "en": "The 1975 Spring General Offensive, culminating in the historic Ho Chi Minh Campaign, completely liberated South Vietnam and reunified the nation."
+        "vi": "Nhân tố chủ quan gồm: khả năng tư duy độc lập, tự chủ, sáng tạo, có óc phê phán; sự khổ công học tập để chiếm lĩnh vốn tri thức của nhân loại; tâm hồn của một nhà yêu nước chân chính, một chiến sĩ cộng sản nhiệt thành. Trước 1911, Nguyễn Tất Thành học ở Trường Quốc học Huế, tham gia phong trào chống thuế ở Trung Kỳ (1908), rồi dạy học ở Trường Dục Thanh (Phan Thiết) trước khi vào Sài Gòn. Đây là giai đoạn hình thành tư tưởng yêu nước và chí hướng cứu nước.",
+        "en": "Independent, creative thinking, tireless learning and a patriot's heart. Before 1911 he studied at Quoc Hoc Hue, joined the 1908 anti-tax movement and taught at Duc Thanh School before heading to Saigon."
       },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/giai-phong-mien-nam-1975.png",
+      "thumbnail_url": "/exhibits/hcm/r1-06-nhan-to-chu-quan.jpg",
       "coordinate_x": 11.75,
       "coordinate_y": 2.85,
       "coordinate_z": 16,
@@ -183,19 +183,19 @@
       "id": "exhibit-convergence-1930",
       "gallery_id": "gallery-subsidy",
       "title": {
-        "vi": "ĐỔI MỚI & PHÁT TRIỂN",
-        "en": "RENOVATION & DEVELOPMENT"
+        "vi": "HÀNH TRANG LÊN ĐƯỜNG",
+        "en": "PREPARED FOR THE JOURNEY"
       },
       "author": {
-        "vi": "Đại hội VI (1986) – Nâng tầm vóc dân tộc",
-        "en": "6th Party Congress (1986) – Elevating the Nation"
+        "vi": "Từ khởi nguồn tư tưởng đến Bến Nhà Rồng (05/06/1911)",
+        "en": "From the roots of the Thought to Nha Rong Wharf (5 June 1911)"
       },
       "description": {
-        "vi": "Đường lối Đổi mới toàn diện đất nước do Đảng đề ra từ Đại hội VI (1986) đã đưa Việt Nam vượt qua khủng hoảng, phát triển kinh tế mạnh mẽ, hội nhập quốc tế và nâng cao vị thế trên trường quốc tế.",
-        "en": "The comprehensive Renovation (Doi Moi) policy initiated at the 6th Congress in 1986 guided Vietnam out of economic crisis into modern growth and international integration."
+        "vi": "Mang theo chủ nghĩa yêu nước, vốn văn hóa phương Đông và khát vọng tìm hiểu \"tự do, bình đẳng, bác ái\" của phương Tây, ngày 5/6/1911 Nguyễn Tất Thành rời Bến Nhà Rồng ra đi tìm đường cứu nước – mở đầu giai đoạn 1911–1920 tiếp tục ở Phòng 02.",
+        "en": "Carrying patriotism, Eastern culture and a wish to understand Western ideals, Nguyen Tat Thanh left Nha Rong Wharf on 5 June 1911 — the journey continues in Room 02."
       },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/cong-cuoc-doi-moi-1986.png",
+      "thumbnail_url": "/exhibits/hcm/r1-trung-tam-ben-nha-rong.jpg",
       "coordinate_x": 0,
       "coordinate_y": 1.1,
       "coordinate_z": 0,

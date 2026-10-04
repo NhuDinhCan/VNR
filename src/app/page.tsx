@@ -4,47 +4,47 @@ import Link from "next/link";
 const rooms = [
   {
     number: "01",
-    title: "Lịch sử Đảng Cộng sản Việt Nam",
-    period: "1930 – Nay",
+    title: "Khởi nguồn Tư tưởng Hồ Chí Minh",
+    period: "Chương 1 – 2 · Trước 1911",
     description:
-      "Khám phá các mốc lịch sử quang vinh từ ngày thành lập Đảng (03/02/1930) qua các phong trào cách mạng, hai cuộc kháng chiến đến Công cuộc Đổi mới.",
-    images: ["/exhibits/thanh-lap-dang-1930.png"],
+      "Khái niệm, đối tượng nghiên cứu; cơ sở thực tiễn, truyền thống dân tộc, tinh hoa nhân loại, chủ nghĩa Mác – Lênin và tuổi trẻ của Người trước khi lên đường.",
+    images: ["/exhibits/hcm/home-chan-dung-1946.jpg"],
     room: "gallery-subsidy",
   },
   {
     number: "02",
-    title: "Tiền thân & Sự chuẩn bị thành lập Đảng",
-    period: "1920 – 1930",
+    title: "Bến Nhà Rồng – Ra đi tìm đường cứu nước",
+    period: "Chương 2 · 1911 – 1917",
     description:
-      "Tìm hiểu quá trình tiếp cận chủ nghĩa Mác – Lênin, Đại hội Tours, thành lập Hội Việt Nam Cách mạng Thanh niên và xuất bản Đường Kách Mệnh.",
-    images: ["/exhibits/anh-sang-cua-con-duong.jpg"],
+      "Văn Ba rời Bến Nhà Rồng ngày 5/6/1911, làm phụ bếp trên tàu, lao động khắp các châu lục – nhận ra nỗi khổ chung của nhân dân các nước thuộc địa.",
+    images: ["/exhibits/hcm/home-ben-nha-rong-xua.jpg"],
     room: "gallery-three",
   },
   {
     number: "03",
-    title: "Đảng trong hai cuộc Kháng chiến",
-    period: "1945 – 1975",
+    title: "Bản Yêu sách của nhân dân An Nam",
+    period: "Chương 3 · Paris 1919",
     description:
-      "Theo dấu sự lãnh đạo của Đảng trong Tổng khởi nghĩa Tháng Tám 1945, Chiến thắng Điện Biên Phủ 1954 và Đại thắng Mùa Xuân 1975.",
-    images: ["/exhibits/dien-bien-phu-1954.png"],
+      "Nguyễn Ái Quốc gửi Hội nghị Versailles bản Yêu sách đòi quyền bình đẳng, tự do báo chí, tự do lập hội – tiếng nói đầu tiên đòi quyền dân tộc tự quyết.",
+    images: ["/exhibits/room-three/room-three-versailles-conference.png"],
     room: "gallery-ceramics",
   },
   {
     number: "04",
-    title: "Đường lối Đổi mới & Hội nhập Quốc tế",
-    period: "1986 – Nay",
+    title: "Liên Xô – Quảng Châu: Chuẩn bị cho cách mạng",
+    period: "Chương 4, 6 · 1923 – 1927",
     description:
-      "Khám phá đường lối Đổi mới toàn diện nền kinh tế do Đảng đề ra từ Đại hội VI (1986), đẩy mạnh công nghiệp hóa, hiện đại hóa và hội nhập.",
-    images: ["/exhibits/cong-cuoc-doi-moi-1986.png"],
+      "Học tập tại Liên Xô, dự Đại hội V Quốc tế Cộng sản, thành lập Hội Việt Nam Cách mạng Thanh niên, ra báo Thanh niên và tác phẩm Đường Kách mệnh.",
+    images: ["/images/room4/station7/nguyen-ai-quoc-guangzhou-training.png"],
     room: "gallery-market-economy",
   },
   {
     number: "05",
-    title: "Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển",
-    period: "Đại hội Đảng Toàn quốc",
+    title: "Hội nghị thành lập Đảng Cộng sản Việt Nam",
+    period: "Chương 4, 5 · 03/02/1930",
     description:
-      "Tổng quan về các kỳ Đại hội toàn quốc của Đảng Cộng sản Việt Nam và tầm nhìn chiến lược đưa đất nước phát triển phồn vinh, hạnh phúc.",
-    images: ["/exhibits/giai-phong-mien-nam-1975.png"],
+      "Tái hiện Hội nghị hợp nhất các tổ chức cộng sản tại Cửu Long (Hồng Kông) do Nguyễn Ái Quốc chủ trì, khai sinh Đảng Cộng sản Việt Nam.",
+    images: ["/exhibits/thanh-lap-dang-1930.png"],
     room: "gallery-paintings",
   },
 ];
@@ -68,9 +68,9 @@ export default function Home() {
             <div className="uppercase leading-tight">
               <p className="text-[10px] font-bold tracking-[.18em] text-[#741e13]">Bảo tàng 3D</p>
               <p className="mt-1 max-w-[320px] font-label-sm text-sm font-extrabold tracking-wide sm:text-base">
-                Lịch sử Đảng Cộng sản Việt Nam
+                Bảo tàng Lịch sử Hồ Chí Minh
               </p>
-              <p className="mt-1 text-[10px] font-bold tracking-[.15em]">1930 – NAY</p>
+              <p className="mt-1 text-[10px] font-bold tracking-[.15em]">1890 – 1969</p>
             </div>
           </div>
           <Link
@@ -87,8 +87,8 @@ export default function Home() {
       <main>
         <section className="relative isolate min-h-[610px] overflow-hidden border-b border-[#6f1d13]/20 lg:min-h-[590px]">
           <Image
-            src="/exhibits/thanh-lap-dang-1930.png"
-            alt="Thành lập Đảng Cộng sản Việt Nam 1930"
+            src="/exhibits/hcm/home-lang-bac.jpg"
+            alt="Lăng Chủ tịch Hồ Chí Minh tại Quảng trường Ba Đình, Hà Nội"
             fill
             priority
             className="object-cover object-center sepia-[.15]"
@@ -104,18 +104,18 @@ export default function Home() {
                 Bảo tàng 3D trải nghiệm
               </p>
               <h1 className="font-headline-lg text-[clamp(2.5rem,5.5vw,5.5rem)] font-bold uppercase leading-[.9] tracking-[-.045em] text-[#741e13] [text-shadow:0_2px_0_#ead9b8]">
-                Lịch sử Đảng<br />Cộng sản Việt Nam
+                Bảo tàng Lịch sử<br />Hồ Chí Minh
               </h1>
               <p className="mt-6 font-headline-lg text-2xl italic text-[#3e2418] sm:text-3xl">
-                Hành trình quang vinh lãnh đạo cách mạng
+                Tư tưởng soi đường cho cách mạng Việt Nam
               </p>
               <div className="mx-auto mt-4 flex max-w-sm items-center gap-4 text-[#741e13]">
                 <span className="h-px flex-1 bg-current/50" />
-                <span className="font-headline-lg text-xl font-bold tracking-[.14em]">1930 – NAY</span>
+                <span className="font-headline-lg text-xl font-bold tracking-[.14em]">1890 – 1969</span>
                 <span className="h-px flex-1 bg-current/50" />
               </div>
               <p className="mx-auto mt-7 max-w-xl text-sm font-medium leading-7 text-[#321f16] sm:text-[15px]">
-                Khám phá các mốc lịch sử vĩ đại của Đảng Cộng sản Việt Nam từ Hội nghị thành lập Đảng năm 1930, các cuộc kháng chiến giải phóng dân tộc đến Công cuộc Đổi mới và hội nhập phát triển đất nước.
+                Khám phá cuộc đời, sự nghiệp và tư tưởng Hồ Chí Minh theo giáo trình Tư tưởng Hồ Chí Minh: từ Bến Nhà Rồng năm 1911, Paris, Liên Xô, Quảng Châu đến Hội nghị thành lập Đảng năm 1930 và những giá trị trường tồn về độc lập dân tộc, đại đoàn kết, văn hóa và đạo đức.
               </p>
               <Link
                 href="/lobby"

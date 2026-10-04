@@ -1,8 +1,11 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useFrame } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import * as THREE from "three";
 import { useMuseum, MultiplayerUser } from "@/context/MuseumContext";
+import { findSceneObject } from "@/lib/sceneLookup";
+import { avatarColorFor } from "@/lib/avatarColor";
+import { CHAT_BUBBLE_CLASS, syncChatBubble, type ChatBubbleSyncState } from "./chatBubble";
 
 // ─── Kích thước dùng chung (giống PlayerCharacter) ───────────────────────────
 const HEAD_R = 0.22;
@@ -25,6 +28,36 @@ const LEG_PIVOT_X = 0.082;
 const LEG_MESH_Y = -(LEG_R + LEG_LEN / 2);
 // ─────────────────────────────────────────────────────────────────────────────
 
+// Geometry & material dùng chung cho mọi avatar: khi đông người, GPU chỉ giữ
+// một bản thay vì mỗi người một bộ, và số đỉnh được giảm vì avatar nhìn từ xa.
+const bodyMat = new THREE.MeshStandardMaterial({ color: "#d4c5b0", roughness: 0.6, metalness: 0 });
+const eyeMat = new THREE.MeshBasicMaterial({ color: "#000000" });
+
+const headGeom = new THREE.SphereGeometry(HEAD_R, 16, 12);
+const eyeGeom = new THREE.SphereGeometry(0.03, 8, 6);
+const torsoGeom = new THREE.CapsuleGeometry(TORSO_R, TORSO_H, 4, 12);
+const armGeom = new THREE.CapsuleGeometry(ARM_R, ARM_LEN, 3, 8);
+const legGeom = new THREE.CapsuleGeometry(LEG_R, LEG_LEN, 3, 8);
+
+const pawnHeadGeom = new THREE.SphereGeometry(0.18, 12, 10);
+const pawnEyeGeom = new THREE.SphereGeometry(0.025, 6, 6);
+const pawnCollarGeom = new THREE.CylinderGeometry(0.12, 0.12, 0.06, 12);
+const pawnBodyGeom = new THREE.CylinderGeometry(0.07, 0.18, 0.5, 12);
+const pawnBaseGeom = new THREE.CylinderGeometry(0.22, 0.22, 0.1, 12);
+
+// Mỗi màu áo dùng chung một material (tối đa bằng số màu trong bảng), không tạo mới theo người.
+const shirtMats = new Map<string, THREE.MeshStandardMaterial>();
+const shirtMatFor = (color: string) => {
+  let mat = shirtMats.get(color);
+  if (!mat) {
+    mat = new THREE.MeshStandardMaterial({ color, roughness: 0.55, metalness: 0 });
+    shirtMats.set(color, mat);
+  }
+  return mat;
+};
+
+const NAME_TAG_MAX_DISTANCE = 15;
+
 interface MultiplayerAvatarItemProps {
   user: MultiplayerUser;
 }
@@ -32,16 +65,21 @@ interface MultiplayerAvatarItemProps {
 const MultiplayerAvatarItem: React.FC<MultiplayerAvatarItemProps> = ({
   user,
 }) => {
-  const { otherUsersPositions, settings } = useMuseum();
+  const { otherUsersPositions, chatBubbles, settings } = useMuseum();
   const groupRef = useRef<THREE.Group>(null);
   const leftLegRef = useRef<THREE.Group>(null);
   const rightLegRef = useRef<THREE.Group>(null);
   const leftArmRef = useRef<THREE.Group>(null);
   const rightArmRef = useRef<THREE.Group>(null);
   const nameTagRef = useRef<HTMLDivElement>(null);
+  const bubbleRef = useRef<HTMLDivElement>(null);
+  const bubbleSync = useRef<ChatBubbleSyncState>({ seq: 0, shown: false }).current;
+  const tagVisible = useRef(true);
 
   const isPawn = settings.preset === 'low';
   const baseY = isPawn ? 0.24 : 0.472; // Phóng to 1.6x (0.15 * 1.6 và 0.295 * 1.6)
+  const shirtColor = avatarColorFor(user.nickname, user.colorIndex);
+  const shirtMat = shirtMatFor(shirtColor);
 
   const lastPos = useRef(new THREE.Vector3(user.x, user.y + baseY, user.z));
   const isMoving = useRef(false);
@@ -97,20 +135,23 @@ const MultiplayerAvatarItem: React.FC<MultiplayerAvatarItemProps> = ({
     isMoving.current = dist > 0.002;
     lastPos.current.copy(groupRef.current.position);
 
-    // Tối ưu hiệu năng: Ẩn nhãn tên của người chơi ở quá xa (15m) để tránh lag reflow trình duyệt
+    // Tối ưu hiệu năng: Ẩn nhãn tên + bong bóng của người chơi ở quá xa (15m) để tránh lag reflow trình duyệt
     if (nameTagRef.current) {
-      const localPlayer = state.scene.getObjectByName('lobby-player');
+      const localPlayer = findSceneObject(state.scene, 'lobby-player');
       if (localPlayer) {
-        const d = groupRef.current.position.distanceTo(localPlayer.position);
-        nameTagRef.current.style.visibility = d > 15 ? 'hidden' : 'visible';
+        const near = groupRef.current.position.distanceTo(localPlayer.position) <= NAME_TAG_MAX_DISTANCE;
+        if (near !== tagVisible.current) {
+          nameTagRef.current.style.visibility = near ? 'visible' : 'hidden';
+          tagVisible.current = near;
+        }
       }
     }
+
+    syncChatBubble(bubbleRef.current, chatBubbles.current[user.id], bubbleSync, Date.now());
 
     const t = state.clock.getElapsedTime();
     const amp = 0.45,
       spd = 10;
-
-
 
     if (isSitting) {
       if (leftLegRef.current) leftLegRef.current.rotation.x = -Math.PI / 2.0;
@@ -152,107 +193,48 @@ const MultiplayerAvatarItem: React.FC<MultiplayerAvatarItemProps> = ({
     }
   });
 
-  const mat = (
-    <meshStandardMaterial color="#d4c5b0" roughness={0.6} metalness={0} />
-  );
-
   return (
     <group ref={groupRef}>
       {isPawn ? (
         <group scale={1.6}>
           {/* MÔ HÌNH CON CỜ (CHESS PAWN) - Tối ưu hiệu năng tối đa cho cấu hình Thấp */}
-          {/* ĐẦU BẢN CHESS PAWN */}
           <group ref={headRef} position={[0, 0.7, 0]}>
-            <mesh>
-              <sphereGeometry args={[0.18, 20, 20]} />
-              {mat}
-            </mesh>
-            {/* Mắt trái */}
-            <mesh position={[-0.06, 0.04, 0.16]}>
-              <sphereGeometry args={[0.025, 12, 12]} />
-              <meshBasicMaterial color="#000000" />
-            </mesh>
-            {/* Mắt phải */}
-            <mesh position={[0.06, 0.04, 0.16]}>
-              <sphereGeometry args={[0.025, 12, 12]} />
-              <meshBasicMaterial color="#000000" />
-            </mesh>
+            <mesh geometry={pawnHeadGeom} material={bodyMat} />
+            <mesh geometry={pawnEyeGeom} material={eyeMat} position={[-0.06, 0.04, 0.16]} />
+            <mesh geometry={pawnEyeGeom} material={eyeMat} position={[0.06, 0.04, 0.16]} />
           </group>
-          <mesh position={[0, 0.48, 0]}>
-            <cylinderGeometry args={[0.12, 0.12, 0.06, 16]} />
-            {mat}
-          </mesh>
-          <mesh position={[0, 0.2, 0]}>
-            <cylinderGeometry args={[0.07, 0.18, 0.5, 16]} />
-            {mat}
-          </mesh>
-          <mesh position={[0, -0.1, 0]}>
-            <cylinderGeometry args={[0.22, 0.22, 0.1, 16]} />
-            {mat}
-          </mesh>
+          <mesh geometry={pawnCollarGeom} material={bodyMat} position={[0, 0.48, 0]} />
+          <mesh geometry={pawnBodyGeom} material={shirtMat} position={[0, 0.2, 0]} />
+          <mesh geometry={pawnBaseGeom} material={bodyMat} position={[0, -0.1, 0]} />
         </group>
       ) : (
         <group scale={1.6}>
           {/* MÔ HÌNH CON NGƯỜI (HUMANOID MANNEQUIN) - Cấu hình Trung bình / Cao */}
-          {/* ĐẦU BẢN THƯỜNG / CAO */}
           <group ref={headRef} position={[0, 0.7, 0]}>
-            <mesh>
-              <sphereGeometry args={[HEAD_R, 28, 28]} />
-              {mat}
-            </mesh>
-            {/* Mắt trái */}
-            <mesh position={[-0.07, 0.05, 0.20]}>
-              <sphereGeometry args={[0.03, 16, 16]} />
-              <meshBasicMaterial color="#000000" />
-            </mesh>
-            {/* Mắt phải */}
-            <mesh position={[0.07, 0.05, 0.20]}>
-              <sphereGeometry args={[0.03, 16, 16]} />
-              <meshBasicMaterial color="#000000" />
-            </mesh>
+            <mesh geometry={headGeom} material={bodyMat} />
+            <mesh geometry={eyeGeom} material={eyeMat} position={[-0.07, 0.05, 0.20]} />
+            <mesh geometry={eyeGeom} material={eyeMat} position={[0.07, 0.05, 0.20]} />
           </group>
 
-          {/* THÂN */}
-          <mesh position={[0, 0.28, 0]}>
-            <capsuleGeometry args={[TORSO_R, TORSO_H, 10, 20]} />
-            {mat}
-          </mesh>
+          <mesh geometry={torsoGeom} material={shirtMat} position={[0, 0.28, 0]} />
 
-          {/* TAY TRÁI */}
           <group ref={leftArmRef} position={[-ARM_PIVOT_X, ARM_PIVOT_Y, 0]}>
-            <mesh position={[0, ARM_MESH_Y, 0]}>
-              <capsuleGeometry args={[ARM_R, ARM_LEN, 8, 16]} />
-              {mat}
-            </mesh>
+            <mesh geometry={armGeom} material={shirtMat} position={[0, ARM_MESH_Y, 0]} />
           </group>
-
-          {/* TAY PHẢI */}
           <group ref={rightArmRef} position={[ARM_PIVOT_X, ARM_PIVOT_Y, 0]}>
-            <mesh position={[0, ARM_MESH_Y, 0]}>
-              <capsuleGeometry args={[ARM_R, ARM_LEN, 8, 16]} />
-              {mat}
-            </mesh>
+            <mesh geometry={armGeom} material={shirtMat} position={[0, ARM_MESH_Y, 0]} />
           </group>
 
-          {/* CHÂN TRÁI */}
           <group ref={leftLegRef} position={[-LEG_PIVOT_X, LEG_PIVOT_Y, 0]}>
-            <mesh position={[0, LEG_MESH_Y, 0]}>
-              <capsuleGeometry args={[LEG_R, LEG_LEN, 8, 16]} />
-              {mat}
-            </mesh>
+            <mesh geometry={legGeom} material={bodyMat} position={[0, LEG_MESH_Y, 0]} />
           </group>
-
-          {/* CHÂN PHẢI */}
           <group ref={rightLegRef} position={[LEG_PIVOT_X, LEG_PIVOT_Y, 0]}>
-            <mesh position={[0, LEG_MESH_Y, 0]}>
-              <capsuleGeometry args={[LEG_R, LEG_LEN, 8, 16]} />
-              {mat}
-            </mesh>
+            <mesh geometry={legGeom} material={bodyMat} position={[0, LEG_MESH_Y, 0]} />
           </group>
         </group>
       )}
 
-      {/* Nhãn tên người chơi */}
+      {/* Nhãn tên + bong bóng chat của người chơi */}
       <Html
         position={[0, 1.8, 0]}
         center
@@ -260,12 +242,16 @@ const MultiplayerAvatarItem: React.FC<MultiplayerAvatarItemProps> = ({
         className="pointer-events-none select-none"
       >
         <div ref={nameTagRef} className="text-center flex flex-col items-center gap-1">
+          <div ref={bubbleRef} className={CHAT_BUBBLE_CLASS} style={{ display: 'none' }} />
           {user.status === 'playing-game' && (
             <div className="bg-amber-500/95 text-slate-950 text-[8px] font-black px-2 py-0.5 rounded-full border border-amber-300 shadow-md animate-pulse">
               🎮 ĐANG CHƠI GAME
             </div>
           )}
-          <div className="bg-cyan-500/90 text-slate-900 text-[10px] font-bold px-2 py-0.5 rounded shadow-lg whitespace-nowrap border border-cyan-300">
+          <div
+            className="text-white text-[10px] font-bold px-2 py-0.5 rounded shadow-lg whitespace-nowrap border border-white/40 [text-shadow:0_1px_2px_rgba(0,0,0,.6)]"
+            style={{ backgroundColor: shirtColor }}
+          >
             {user.nickname}
           </div>
         </div>
@@ -274,13 +260,36 @@ const MultiplayerAvatarItem: React.FC<MultiplayerAvatarItemProps> = ({
   );
 };
 
+// Chu kỳ đối chiếu phòng thời gian thực của người khác (vị trí nằm trong ref, không có state).
+const ROOM_MEMBERSHIP_REFRESH_MS = 500;
+
 export const MultiplayerAvatars: React.FC = () => {
-  const { otherUsers, settings, activeGallery } = useMuseum();
-  
-  // Lọc hiển thị: chỉ vẽ người chơi trong CÙNG PHÒNG và giới hạn số lượng tối đa hiển thị
+  const { otherUsers, otherUsersPositions, settings, activeGallery } = useMuseum();
   const currentRoomId = activeGallery?.id || 'lobby';
+  const [sameRoomIds, setSameRoomIds] = useState<string>('');
+
+  // Chỉ dựng avatar của người đang ở CÙNG PHÒNG theo vị trí thời gian thực từ server,
+  // giúp nhiều người online mà mỗi máy chỉ phải vẽ những người thực sự nhìn thấy.
+  useEffect(() => {
+    const refresh = () => {
+      const ids = otherUsers
+        .filter((u) => {
+          if (!u.nickname) return false;
+          const live = otherUsersPositions.current[u.id];
+          return (live?.galleryId || u.galleryId || 'lobby') === currentRoomId;
+        })
+        .map((u) => u.id)
+        .join('|');
+      setSameRoomIds((prev) => (prev === ids ? prev : ids));
+    };
+    refresh();
+    const timer = window.setInterval(refresh, ROOM_MEMBERSHIP_REFRESH_MS);
+    return () => window.clearInterval(timer);
+  }, [otherUsers, otherUsersPositions, currentRoomId]);
+
+  const visibleIdSet = new Set(sameRoomIds ? sameRoomIds.split('|') : []);
   const visibleUsers = otherUsers
-    .filter((u) => u.nickname !== "" && (u.galleryId || "lobby") === currentRoomId)
+    .filter((u) => visibleIdSet.has(u.id))
     .slice(0, settings.maxAvatars);
 
   return (

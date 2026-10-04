@@ -2,8 +2,8 @@
   "galleries": [
     {
       "id": "gallery-paintings",
-      "name": "Phòng 05: Các Kỳ Đại hội Đảng & Tầm nhìn Phát triển",
-      "description": "Không gian tổng quan trưng bày các kỳ Đại hội toàn quốc của Đảng Cộng sản Việt Nam và các định hướng chiến lược phát triển đất nước.",
+      "name": "Phòng 05: Hội nghị thành lập Đảng Cộng sản Việt Nam (1930)",
+      "description": "Tái hiện Hội nghị hợp nhất các tổ chức cộng sản tại Cửu Long (Hồng Kông) ngày 3/2/1930 do Nguyễn Ái Quốc chủ trì – thực tiễn tư tưởng Hồ Chí Minh về Đảng Cộng sản Việt Nam.",
       "scene_asset_url": "",
       "is_active": true,
       "room_width": 24,

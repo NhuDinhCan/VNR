@@ -196,7 +196,7 @@ export const MuseumLobby: React.FC = () => {
           maxWidth={11.4}
           textAlign="center"
         >
-          BẢO TÀNG LỊCH SỬ ĐẢNG CỘNG SẢN VIỆT NAM
+          BẢO TÀNG LỊCH SỬ HỒ CHÍ MINH
         </Text>
       </group>
 

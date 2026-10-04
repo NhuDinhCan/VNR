@@ -330,6 +330,7 @@ export const RoomNhaRong: React.FC<RoomNhaRongProps> = ({ galleryId, customSetti
           <div className="museum-room-sign nha-rong-typography w-80 border-y border-amber-200/70 bg-stone-950 px-5 py-3 text-center shadow-2xl">
             <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-amber-300">05.06.1911</p>
             <p className="nha-rong-display mt-1.5 text-[20px] text-amber-50">Bến Nhà Rồng — Khởi đầu một hành trình</p>
+            <p className="mt-1.5 text-[10px] font-semibold uppercase tracking-[0.14em] text-amber-200/80">Chương 2 · Giai đoạn 1911–1920: Tìm đường cứu nước</p>
           </div>
         </TwoSidedBanner>
       </group>

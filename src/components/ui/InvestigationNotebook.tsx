@@ -16,85 +16,78 @@ interface ShaftConfig {
 const SHAFTS_CONFIG: ShaftConfig[] = [
   {
     id: 1,
-    title: 'Trục Thành Lập Đảng 1930',
-    desc: 'Hợp nhất các tổ chức cộng sản, thành lập Đảng Cộng sản Việt Nam ngày 3/2/1930.',
+    title: 'Trạm 1 · Khái niệm (Chương 1)',
+    desc: 'Tư tưởng Hồ Chí Minh là gì, theo định nghĩa của Đảng.',
     requiredGears: ['exhibit-coupon'],
-    requiredConclusion: 'Sự kiện thành lập Đảng ngày 3/2/1930 tạo nên bước ngoặt vĩ đại, chấm dứt thời kỳ khủng hoảng bế tắc về đường lối cách mạng.'
+    requiredConclusion: 'Tư tưởng Hồ Chí Minh là hệ thống quan điểm toàn diện, sâu sắc về những vấn đề cơ bản của cách mạng Việt Nam, vận dụng sáng tạo chủ nghĩa Mác – Lênin.'
   },
   {
     id: 2,
-    title: 'Trục Cao Trào 1930–1931',
-    desc: 'Phong trào cách mạng 1930–1931 đỉnh cao là Xô viết Nghệ Tĩnh.',
-    requiredGears: ['exhibit-world-1911-1917'],
-    requiredConclusion: 'Phong trào Xô viết Nghệ Tĩnh khẳng định quyền lãnh đạo và năng lực thực tiễn của Đảng và giai cấp công nhân.'
+    title: 'Trạm 2 · Đối tượng & phương pháp (Chương 1)',
+    desc: 'Nghiên cứu cái gì, nghiên cứu như thế nào, học để làm gì.',
+    requiredGears: ['exhibit-lenin-theses-1920'],
+    requiredConclusion: 'Nghiên cứu tư tưởng Hồ Chí Minh phải thống nhất tính đảng và tính khoa học, lý luận gắn với thực tiễn.'
   },
   {
     id: 3,
-    title: 'Trục Phong Trào Dân Chủ 1936–1939',
-    desc: 'Đấu tranh rộng lớn đòi quyền tự do, dân sinh, dân chủ, hòa bình.',
-    requiredGears: ['exhibit-versailles-1919'],
-    requiredConclusion: 'Phong trào Dân chủ 1936–1939 đã tập hợp lực lượng quần chúng rộng lớn, chuẩn bị cho cuộc đấu tranh giành chính quyền.'
+    title: 'Trạm 3 · Cơ sở thực tiễn (Chương 2)',
+    desc: 'Việt Nam và thế giới cuối thế kỷ XIX – đầu thế kỷ XX.',
+    requiredGears: ['exhibit-world-1911-1917'],
+    requiredConclusion: 'Các phong trào yêu nước đầu thế kỷ XX thất bại, cách mạng Việt Nam khủng hoảng về đường lối cứu nước.'
   },
   {
     id: 4,
-    title: 'Trục Cách Mạng Tháng Tám 1945',
-    desc: 'Tổng khởi nghĩa giành chính quyền và Tuyên ngôn Độc lập ngày 2/9/1945.',
-    requiredGears: ['exhibit-lenin-theses-1920'],
-    requiredConclusion: 'Cách mạng Tháng Tám năm 1945 lật đổ ách thống trị thực dân, phát xít, khai sinh nước Việt Nam Dân chủ Cộng hòa.'
+    title: 'Trạm 4 · Truyền thống dân tộc (Chương 2)',
+    desc: 'Quê hương, gia đình và giá trị cốt lõi của dân tộc.',
+    requiredGears: ['exhibit-tours-1920'],
+    requiredConclusion: 'Chủ nghĩa yêu nước là giá trị cốt lõi trong truyền thống dân tộc mà Hồ Chí Minh kế thừa.'
   },
   {
     id: 5,
-    title: 'Trục Chiến Thắng Điện Biên Phủ 1954',
-    desc: 'Đập tan tập đoàn cứ điểm thực dân Pháp, lừng lẫy năm châu.',
-    requiredGears: ['exhibit-tours-1920'],
-    requiredConclusion: 'Chiến thắng Điện Biên Phủ 1954 chấm dứt kháng chiến chống Pháp, buộc Pháp ký Hiệp định Giơ-ne-vơ công nhận độc lập Việt Nam.'
+    title: 'Trạm 5 · Tinh hoa nhân loại & Mác – Lênin (Chương 2)',
+    desc: 'Phương Đông, phương Tây và lý luận cách mạng.',
+    requiredGears: ['exhibit-versailles-1919'],
+    requiredConclusion: 'Chủ nghĩa Mác – Lênin là cơ sở lý luận quyết định bản chất cách mạng và khoa học của tư tưởng Hồ Chí Minh.'
   },
   {
     id: 6,
-    title: 'Trục Đại Thắng Mùa Xuân 1975',
-    desc: 'Giải phóng hoàn toàn miền Nam, thống nhất Tổ quốc ngày 30/4/1975.',
+    title: 'Trạm 6 · Nhân tố chủ quan (Chương 2)',
+    desc: 'Phẩm chất cá nhân và tuổi trẻ trước năm 1911.',
     requiredGears: ['exhibit-guangzhou-1925-1927'],
-    requiredConclusion: 'Đại thắng Mùa Xuân 1975 kết thúc thắng lợi cuộc kháng chiến chống Mỹ, giải phóng miền Nam và thu giang sơn về một mối.'
+    requiredConclusion: 'Tư duy độc lập, tự chủ, sáng tạo và chí hướng cứu nước hình thành trước 1911 chuẩn bị cho hành trình ra đi.'
   }
 ];
 
 const EXHIBIT_LABELS: Record<string, string> = {
-  'exhibit-coupon': '🚩 Thành lập Đảng 1930',
-  'exhibit-world-1911-1917': '✊ Xô viết Nghệ Tĩnh',
-  'exhibit-versailles-1919': '📜 Phong trào Dân chủ 1936',
-  'exhibit-lenin-theses-1920': '⭐ Cách mạng Tháng Tám 1945',
-  'exhibit-tours-1920': '🎖️ Điện Biên Phủ 1954',
-  'exhibit-guangzhou-1925-1927': '🕊️ Đại thắng Mùa Xuân 1975',
-  'exhibit-convergence-1930': '🚀 Đổi mới & Phát triển',
+  'exhibit-coupon': '📖 Trạm 1 · Khái niệm',
+  'exhibit-lenin-theses-1920': '🔎 Trạm 2 · Đối tượng & phương pháp',
+  'exhibit-world-1911-1917': '🌏 Trạm 3 · Cơ sở thực tiễn',
+  'exhibit-tours-1920': '🌾 Trạm 4 · Truyền thống dân tộc',
+  'exhibit-versailles-1919': '📚 Trạm 5 · Tinh hoa nhân loại',
+  'exhibit-guangzhou-1925-1927': '🎓 Trạm 6 · Nhân tố chủ quan',
+  'exhibit-convergence-1930': '⚓ Hành trang lên đường',
 };
 
 const EXHIBIT_THUMBNAILS: Record<string, string> = {
-  'exhibit-coupon': '/exhibits/thanh-lap-dang-1930.png',
-  'exhibit-world-1911-1917': '/exhibits/xo-viet-nghe-tinh.png',
-  'exhibit-versailles-1919': '/exhibits/phong-trao-dan-chu-1936.png',
-  'exhibit-lenin-theses-1920': '/exhibits/cach-mang-thang-tam-1945.png',
-  'exhibit-tours-1920': '/exhibits/dien-bien-phu-1954.png',
-  'exhibit-guangzhou-1925-1927': '/exhibits/giai-phong-mien-nam-1975.png',
-  'exhibit-convergence-1930': '/exhibits/cong-cuoc-doi-moi-1986.png'
+  'exhibit-coupon': '/exhibits/hcm/r1-01-khai-niem.jpg',
+  'exhibit-lenin-theses-1920': '/exhibits/hcm/r1-02-doi-tuong.jpg',
+  'exhibit-world-1911-1917': '/exhibits/hcm/r1-03-thuc-tien.jpg',
+  'exhibit-tours-1920': '/exhibits/hcm/r1-04-truyen-thong.jpg',
+  'exhibit-versailles-1919': '/exhibits/hcm/r1-05-mac-lenin.jpg',
+  'exhibit-guangzhou-1925-1927': '/exhibits/hcm/r1-06-nhan-to-chu-quan.jpg',
+  'exhibit-convergence-1930': '/exhibits/hcm/r1-trung-tam-ben-nha-rong.jpg'
 };
 
-const CONCLUSION_OPTIONS = [
-  'Sự kiện thành lập Đảng ngày 3/2/1930 tạo nên bước ngoặt vĩ đại, chấm dứt thời kỳ khủng hoảng bế tắc về đường lối cách mạng.',
-  'Phong trào Xô viết Nghệ Tĩnh khẳng định quyền lãnh đạo và năng lực thực tiễn của Đảng và giai cấp công nhân.',
-  'Phong trào Dân chủ 1936–1939 đã tập hợp lực lượng quần chúng rộng lớn, chuẩn bị cho cuộc đấu tranh giành chính quyền.',
-  'Cách mạng Tháng Tám năm 1945 lật đổ ách thống trị thực dân, phát xít, khai sinh nước Việt Nam Dân chủ Cộng hòa.',
-  'Chiến thắng Điện Biên Phủ 1954 chấm dứt kháng chiến chống Pháp, buộc Pháp ký Hiệp định Giơ-ne-vơ công nhận độc lập Việt Nam.',
-  'Đại thắng Mùa Xuân 1975 kết thúc thắng lợi cuộc kháng chiến chống Mỹ, giải phóng miền Nam và thu giang sơn về một mối.',
-];
+const CONCLUSION_OPTIONS = SHAFTS_CONFIG.map((shaft) => shaft.requiredConclusion);
 
 const EXHIBITS_LIST = [
-  { id: 'exhibit-coupon', label: 'Thành lập Đảng 1930', clue: 'HỒNG KÔNG 1930 · CHÁNH CƯƠNG TẮT · CỬU LONG · THÀNH LẬP ĐẢNG', desc: 'Ngày 3/2/1930, Đảng Cộng sản Việt Nam được chính thức thành lập tại Hồng Kông.' },
-  { id: 'exhibit-world-1911-1917', label: 'Xô viết Nghệ Tĩnh', clue: 'XÔ VIẾT NGHỆ TĨNH · 1930-1931 · CAO TRÀO CÁCH MẠNG · CÔNG NÔNG', desc: 'Phong trào cách mạng 1930–1931 đỉnh cao là Xô viết Nghệ Tĩnh khẳng định bản lĩnh đấu tranh.' },
-  { id: 'exhibit-versailles-1919', label: 'Phong trào Dân chủ 1936', clue: 'DÂN CHỦ 1936-1939 · DÂN SINH · TỰ DO · CƠM ÁO · HÒA BÌNH', desc: 'Cuộc đấu tranh rộng lớn đòi tự do, dân sinh, dân chủ, chuẩn bị cho tổng khởi nghĩa.' },
-  { id: 'exhibit-lenin-theses-1920', label: 'Cách mạng Tháng Tám 1945', clue: 'TỔNG KHỞI NGHĨA · THÁNG TÁM 1945 · TUYÊN NGÔN ĐỘC LẬP · 2/9/1945', desc: 'Tổng khởi nghĩa Tháng Tám 1945 thành công, đọc Tuyên ngôn Độc lập khai sinh nước Việt Nam Dân chủ Cộng hòa.' },
-  { id: 'exhibit-tours-1920', label: 'Điện Biên Phủ 1954', clue: 'ĐIỆN BIÊN PHỦ 1954 · LỪNG LẪY NĂM CHÂU · GIƠ-NE-VƠ · ĐỘC LẬP', desc: 'Chiến thắng lừng lẫy năm châu 1954 buộc Pháp ký Hiệp định Giơ-ne-vơ công nhận độc lập.' },
-  { id: 'exhibit-guangzhou-1925-1927', label: 'Đại thắng Mùa Xuân 1975', clue: '30 THÁNG 4 1975 · ĐẠI THẮNG MÙA XUÂN · CHIẾN DỊCH HỒ CHÍ MINH · THỐNG NHẤT', desc: 'Giải phóng hoàn toàn miền Nam 30/4/1975, thống nhất đất nước Việt Nam.' },
-  { id: 'exhibit-convergence-1930', label: 'Đổi mới & Phát triển', clue: 'ĐỔI MỚI 1986 · ĐẠI HỘI VI · HỘI NHẬP QUỐC TẾ · PHÁT TRIỂN ĐẤT NƯỚC', desc: 'Đường lối Đổi mới năm 1986 đưa đất nước phát triển kinh tế và hội nhập quốc tế.' },
+  { id: 'exhibit-coupon', label: 'Trạm 1 · Khái niệm', clue: 'CHƯƠNG 1 · HỆ THỐNG QUAN ĐIỂM · ĐẠI HỘI IX · NỀN TẢNG TƯ TƯỞNG', desc: 'Khái niệm tư tưởng Hồ Chí Minh theo định nghĩa của Đảng.' },
+  { id: 'exhibit-lenin-theses-1920', label: 'Trạm 2 · Đối tượng & phương pháp', clue: 'CHƯƠNG 1 · ĐỐI TƯỢNG · TÍNH ĐẢNG & TÍNH KHOA HỌC · Ý NGHĨA HỌC TẬP', desc: 'Đối tượng, phương pháp nghiên cứu và ý nghĩa học tập môn học.' },
+  { id: 'exhibit-world-1911-1917', label: 'Trạm 3 · Cơ sở thực tiễn', clue: 'CHƯƠNG 2 · KHỦNG HOẢNG ĐƯỜNG LỐI · ĐÔNG DU · CÁCH MẠNG THÁNG MƯỜI', desc: 'Việt Nam và thế giới cuối thế kỷ XIX – đầu thế kỷ XX.' },
+  { id: 'exhibit-tours-1920', label: 'Trạm 4 · Truyền thống dân tộc', clue: 'CHƯƠNG 2 · CHỦ NGHĨA YÊU NƯỚC · LÀNG SEN · NGUYỄN SINH SẮC', desc: 'Giá trị truyền thống dân tộc, quê hương và gia đình.' },
+  { id: 'exhibit-versailles-1919', label: 'Trạm 5 · Tinh hoa nhân loại', clue: 'CHƯƠNG 2 · PHƯƠNG ĐÔNG · PHƯƠNG TÂY · MÁC – LÊNIN', desc: 'Tinh hoa văn hóa nhân loại và chủ nghĩa Mác – Lênin.' },
+  { id: 'exhibit-guangzhou-1925-1927', label: 'Trạm 6 · Nhân tố chủ quan', clue: 'CHƯƠNG 2 · QUỐC HỌC HUẾ · TRƯỜNG DỤC THANH · CHÍ HƯỚNG CỨU NƯỚC', desc: 'Phẩm chất cá nhân và tuổi trẻ trước năm 1911.' },
+  { id: 'exhibit-convergence-1930', label: 'Hành trang lên đường', clue: 'BẾN NHÀ RỒNG · 05/06/1911 · VĂN BA · TÌM ĐƯỜNG CỨU NƯỚC', desc: 'Ngày 5/6/1911, Nguyễn Tất Thành ra đi tìm đường cứu nước – tiếp tục ở Phòng 02.' },
 ];
 
 export const InvestigationNotebook: React.FC = () => {
@@ -671,7 +664,7 @@ export const InvestigationNotebook: React.FC = () => {
                       ? 'text-slate-500'
                       : 'text-[#725b29]'
                   }`}>
-                    {activeTab === 'clues' ? 'DETAILED INVESTIGATION DOSSIER' : 'KẾT NỐI LỊCH SỬ ĐẢNG CỘNG SẢN VIỆT NAM'}
+                    {activeTab === 'clues' ? 'DETAILED INVESTIGATION DOSSIER' : 'KẾT NỐI TƯ TƯỞNG HỒ CHÍ MINH'}
                   </p>
                 </div>
                 {activeTab === 'deduction' && score !== null && (
@@ -859,10 +852,10 @@ export const InvestigationNotebook: React.FC = () => {
 
                         <div className="space-y-1.5 text-[11px] leading-relaxed font-sans text-slate-800 text-justify">
                           <p>
-                            Qua quá trình khảo sát và kết nối các tư liệu, tôi xác nhận các mốc Lịch sử Đảng Cộng sản Việt Nam từ năm 1930 đến nay là một hành trình phát triển quang vinh liên tục từ <b>thành lập Đảng</b> đến <b>lãnh đạo hai cuộc kháng chiến giải phóng dân tộc và Công cuộc Đổi mới toàn diện đất nước</b>.
+                            Qua quá trình khảo sát và kết nối các tư liệu, tôi xác nhận tư tưởng Hồ Chí Minh hình thành từ <b>cơ sở thực tiễn</b> Việt Nam và thế giới, <b>cơ sở lý luận</b> gồm truyền thống dân tộc, tinh hoa văn hóa nhân loại, chủ nghĩa Mác – Lênin, cùng <b>nhân tố chủ quan</b> của Người.
                           </p>
                           <p>
-                            Những thắng lợi vĩ đại đó khẳng định vai trò lãnh đạo duy nhất, đúng đắn và bản lĩnh cách mạng của Đảng Cộng sản Việt Nam đối với sự nghiệp xây dựng và bảo vệ Tổ quốc.
+                            Mang theo hành trang ấy, ngày 5/6/1911 Nguyễn Tất Thành rời Bến Nhà Rồng ra đi tìm đường cứu nước – hành trình tiếp tục ở Phòng 02.
                           </p>
                         </div>
                       </div>

@@ -4,6 +4,7 @@ import { Html } from "@react-three/drei";
 import * as THREE from "three";
 import { Exhibit } from "@/lib/db";
 import { useMuseum } from "@/context/MuseumContext";
+import { findSceneObject } from "@/lib/sceneLookup";
 
 interface ExhibitObjectProps {
   exhibit: Exhibit;
@@ -133,11 +134,13 @@ const baseRingSelectedMat = new THREE.MeshBasicMaterial({
   side: THREE.DoubleSide,
 });
 
-const ROOM5_FIRST_VOYAGE_IMAGE_URL = "/exhibits/nha-rong-first-voyage.png";
-const ROOM5_FIRST_VOYAGE_IMAGE_ASPECT = 335 / 597;
-const ROOM5_VAN_BA_PROFILE_IMAGE_URL = "/exhibits/nha-rong-van-ba-profile.png";
-const ROOM5_GALLEY_ARCHIVE_IMAGE_URL = "/exhibits/nha-rong-galley-archive.png";
-const ROOM5_GALLEY_ARCHIVE_IMAGE_ASPECT = 450 / 260;
+// Ảnh tư liệu Phòng 02 đã được dàn khung theo đúng tỉ lệ tường (3.6 × 2.16).
+const ROOM5_WALL_IMAGE_ASPECT = 3.6 / 2.16;
+const ROOM5_FIRST_VOYAGE_IMAGE_URL = "/exhibits/hcm/r2-thu-marseille-1911.jpg";
+const ROOM5_FIRST_VOYAGE_IMAGE_ASPECT = ROOM5_WALL_IMAGE_ASPECT;
+const ROOM5_VAN_BA_PROFILE_IMAGE_URL = "/exhibits/hcm/r2-tau-latouche.jpg";
+const ROOM5_GALLEY_ARCHIVE_IMAGE_URL = "/exhibits/hcm/r2-lao-dong.jpg";
+const ROOM5_GALLEY_ARCHIVE_IMAGE_ASPECT = ROOM5_WALL_IMAGE_ASPECT;
 
 // Hàm tự động vẽ tranh thủ công giả lập thời bao cấp khi gặp lỗi CORS tải ảnh từ Unsplash
 function createProceduralTexture(title: string, id: string): string {
@@ -431,7 +434,10 @@ const PaintingComponent: React.FC<{
             e.stopPropagation();
             if (onClick) onClick(exhibit);
             else {
-              setExhibitModalMode(isRoomFiveDeparture || isRoomFiveVanBaProfile || isRoomFiveGalleyMission || isRoomFiveFirstVoyage ? "game" : "info");
+              // Phòng 01: bấm biển dưới tranh cũng vào câu hỏi ôn tập để tích điểm mở tủ kính.
+              const opensGame = exhibit.gallery_id === "gallery-subsidy"
+                || isRoomFiveDeparture || isRoomFiveVanBaProfile || isRoomFiveGalleyMission || isRoomFiveFirstVoyage;
+              setExhibitModalMode(opensGame ? "game" : "info");
               setSelectedExhibit(exhibit);
             }
           }}
@@ -923,8 +929,8 @@ export const ExhibitObject: React.FC<ExhibitObjectProps> = ({
     if (isVisible && groupRef.current && elapsed - lastProximityCheck.current > 0.18) {
       lastProximityCheck.current = elapsed;
       const player =
-        state.scene.getObjectByName("player-character") ||
-        state.scene.getObjectByName("lobby-player");
+        findSceneObject(state.scene, "player-character") ||
+        findSceneObject(state.scene, "lobby-player");
       if (player) {
         groupRef.current.getWorldPosition(worldPos);
         player.getWorldPosition(playerPos);

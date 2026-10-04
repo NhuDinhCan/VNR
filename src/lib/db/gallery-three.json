@@ -2,8 +2,8 @@
   "galleries": [
     {
       "id": "gallery-three",
-      "name": "Phòng 02: Tiền thân & Chuẩn bị thành lập Đảng (1920–1930)",
-      "description": "Không gian tư liệu về quá trình khảo nghiệm lý luận Mác - Lênin, thành lập Hội Việt Nam Cách mạng Thanh niên và các tổ chức cộng sản tiền thân.",
+      "name": "Phòng 02: Bến Nhà Rồng – Ra đi tìm đường cứu nước (1911)",
+      "description": "Chương 2 – giai đoạn 1911–1920: ngày 5/6/1911, Nguyễn Tất Thành (Văn Ba) rời Bến Nhà Rồng trên tàu Amiral Latouche-Tréville, lao động và khảo sát thực tiễn khắp các châu lục, nhận ra nỗi khổ chung của nhân dân các nước thuộc địa.",
       "scene_asset_url": "",
       "is_active": true,
       "room_width": 24,
@@ -19,13 +19,14 @@
     {
       "id": "nha-rong-departure-1911",
       "gallery_id": "gallery-three",
-      "title": { "vi": "Sơ thảo Luận cương Lênin (Tháng 7/1920)", "en": "Lenin's Preliminary Draft Theses (July 1920)" },
-      "author": { "vi": "Paris – 1920", "en": "Paris – 1920" },
-      "description": { "vi": "Sơ thảo lần thứ nhất những luận cương về vấn đề dân tộc và thuộc địa của Lênin đã định hướng con đường cách mạng vô sản cho sự nghiệp giải phóng Việt Nam.", "en": "Lenin's Draft Theses on National and Colonial Questions established the proletarian path for Vietnam's liberation." },
+      "title": { "vi": "Rời Bến Nhà Rồng (05/06/1911)", "en": "Leaving Nha Rong Wharf (5 June 1911)" },
+      "author": { "vi": "Chương 2 · Sài Gòn – 1911", "en": "Chapter 2 · Saigon – 1911" },
+      "description": { "vi": "Tòa nhà Rồng – trụ sở hãng vận tải biển Messageries Maritimes ở Sài Gòn. Chứng kiến sự thất bại của các phong trào yêu nước theo khuynh hướng phong kiến và dân chủ tư sản, người thanh niên Nguyễn Tất Thành quyết định sang phương Tây để tìm hiểu \"đằng sau những chữ Tự do, Bình đẳng, Bác ái\". Ngày 5/6/1911, Người rời Bến Nhà Rồng – mở đầu giai đoạn 1911–1920: tìm thấy con đường cứu nước, giải phóng dân tộc.", "en": "The Dragon House, headquarters of the Messageries Maritimes in Saigon. On 5 June 1911 young Nguyen Tat Thanh left here for the West to find a path to national salvation." },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/anh-sang-cua-con-duong.jpg",
+      "thumbnail_url": "/exhibits/hcm/r2-roi-ben-nha-rong.jpg",
       "image_urls": [
-        "/exhibits/anh-sang-cua-con-duong.jpg"
+        "/exhibits/hcm/r2-roi-ben-nha-rong.jpg",
+        "/exhibits/nha-rong-harbor-1911.png"
       ],
       "coordinate_x": -10.8,
       "coordinate_y": 2.7,
@@ -40,11 +41,14 @@
     {
       "id": "nha-rong-latouche-treville",
       "gallery_id": "gallery-three",
-      "title": { "vi": "Đại hội Tours & Đảng Cộng sản Pháp (12/1920)", "en": "Tours Congress & French Communist Party (12/1920)" },
-      "author": { "vi": "Tours – 1920", "en": "Tours – 1920" },
-      "description": { "vi": "Sự kiện bỏ phiếu tán thành Quốc tế Cộng sản III và tham gia sáng lập Đảng Cộng sản Pháp, đánh dấu bước chuyển từ người yêu nước thành người cộng sản.", "en": "Voting to join the Communist International III and helping found the French Communist Party marked the shift into a communist." },
+      "title": { "vi": "Văn Ba & tàu Amiral Latouche-Tréville", "en": "Van Ba & the Amiral Latouche-Treville" },
+      "author": { "vi": "Chương 2 · Bến Nhà Rồng – 1911", "en": "Chapter 2 · Nha Rong Wharf – 1911" },
+      "description": { "vi": "Lấy tên Văn Ba, Nguyễn Tất Thành xin làm phụ bếp trên tàu buôn Amiral Latouche-Tréville của hãng Năm Sao (Chargeurs Réunis). Lá thư Người viết tại Marseille ngày 15/9/1911 là tư liệu gốc xác nhận điều này: \"Tôi hiện làm việc cho Công ty Chargeurs Réunis (tàu Amiral Latouche-Tréville) để kiếm sống… Tôi hoàn toàn không có tài sản và rất ham học hỏi.\" Không đi theo con đường sang phương Đông của các bậc tiền bối, Người chọn sang phương Tây với hai bàn tay lao động làm hành trang.", "en": "Under the name Van Ba, Nguyen Tat Thanh signed on as a kitchen hand aboard the Amiral Latouche-Treville, choosing the West rather than the East, with only his labour as his means." },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/su-lua-chon-lich-su.jpg",
+      "thumbnail_url": "/exhibits/hcm/r2-tau-latouche.jpg",
+      "image_urls": [
+        "/exhibits/hcm/r2-tau-latouche.jpg"
+      ],
       "coordinate_x": 10.8,
       "coordinate_y": 2.7,
       "coordinate_z": -12.5,
@@ -58,11 +62,14 @@
     {
       "id": "nha-rong-galley-work",
       "gallery_id": "gallery-three",
-      "title": { "vi": "Hội Việt Nam Cách mạng Thanh niên (1925)", "en": "Vietnamese Revolutionary Youth League (1925)" },
-      "author": { "vi": "Quảng Châu – 1925", "en": "Guangzhou – 1925" },
-      "description": { "vi": "Tổ chức tiền thân trực tiếp chuẩn bị về chính trị, tư tưởng, tổ chức và cán bộ cho sự ra đời của Đảng Cộng sản Việt Nam.", "en": "The direct predecessor organization that prepared political theory, cadres, and structure for founding the Communist Party of Vietnam." },
+      "title": { "vi": "Lao động để sống và học hỏi", "en": "Working to live and to learn" },
+      "author": { "vi": "Chương 2 · Trên tàu – London 1913", "en": "Chapter 2 · At sea – London 1913" },
+      "description": { "vi": "Làm phụ bếp trên tàu từ sáng sớm đến tối mịt, rồi làm thuê ở khách sạn Carlton (London, 1913) – như tấm biển kỷ niệm nay vẫn ghi lại. Cuộc sống lao động giúp người thanh niên yêu nước hiểu sâu sắc đời sống của giai cấp công nhân và nhân dân lao động – nền tảng cho tình thương yêu con người trong tư tưởng Hồ Chí Minh.", "en": "Galley work at sea, then work at London's Carlton Hotel in 1913 — as the commemorative plaque records — gave him first-hand understanding of working people's lives." },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/chuan-bi-cho-cach-mang.jpg",
+      "thumbnail_url": "/exhibits/hcm/r2-lao-dong.jpg",
+      "image_urls": [
+        "/exhibits/hcm/r2-lao-dong.jpg"
+      ],
       "coordinate_x": -10.8,
       "coordinate_y": 2.7,
       "coordinate_z": 10.5,
@@ -76,13 +83,13 @@
     {
       "id": "nha-rong-first-voyage",
       "gallery_id": "gallery-three",
-      "title": { "vi": "Tác phẩm Đường Kách Mệnh (1927)", "en": "The Revolutionary Path (1927)" },
-      "author": { "vi": "Quảng Châu – 1927", "en": "Guangzhou – 1927" },
-      "description": { "vi": "Tập hợp các bài giảng huấn luyện cán bộ cách mạng, trang bị lý luận Mác - Lênin làm nền tảng tư tưởng cho phong trào cách mạng Việt Nam.", "en": "Compiled revolutionary training lectures equipping cadres with Marxist-Leninist theory as the ideological foundation." },
+      "title": { "vi": "Cập cảng Marseille & hành trình qua các châu lục", "en": "Arriving in Marseille & the journey across continents" },
+      "author": { "vi": "Chương 2 · Marseille – tháng 7/1911", "en": "Chapter 2 · Marseille – July 1911" },
+      "description": { "vi": "Sau hơn một tháng lênh đênh qua Singapore, Colombo, Port Said…, tàu cập cảng Marseille (Pháp) tháng 7/1911 – lần đầu Người đặt chân lên đất Pháp và thấy ở chính quốc cũng có người nghèo khổ. Những năm sau, Người qua nhiều nước châu Phi, châu Mỹ, châu Âu và rút ra: ở đâu chủ nghĩa đế quốc cũng tàn bạo, ở đâu nhân dân lao động cũng bị áp bức – cơ sở thực tiễn cho tư tưởng về độc lập dân tộc (Chương 3) và đoàn kết quốc tế (Chương 5).", "en": "The ship reached Marseille in July 1911, his first step on French soil. Travelling through Africa, the Americas and Europe, he concluded that imperialism was cruel and working people oppressed everywhere." },
       "model_3d_url": "",
-      "thumbnail_url": "/exhibits/thanh-lap-dang-1930.png",
+      "thumbnail_url": "/exhibits/hcm/r2-thu-marseille-1911.jpg",
       "image_urls": [
-        "/exhibits/thanh-lap-dang-1930.png"
+        "/exhibits/hcm/r2-thu-marseille-1911.jpg"
       ],
       "coordinate_x": 10.8,
       "coordinate_y": 2.7,

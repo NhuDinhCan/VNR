@@ -15,6 +15,7 @@ interface QuizQuestion {
   options: string[];
   correctIndex: number | number[]; // index (hoặc mảng index nếu chọn nhiều)
   isMulti?: boolean;
+  explanation?: string;
 }
 
 interface GameplayData {
@@ -33,6 +34,7 @@ interface ExhibitMediaCarouselProps {
 }
 
 const NHA_RONG_DEPARTURE_IMAGES = [
+  '/exhibits/hcm/r2-roi-ben-nha-rong.jpg',
   '/exhibits/nha-rong-harbor-1911.png',
   '/exhibits/nha-rong-postcard-1911.png',
 ];
@@ -217,6 +219,7 @@ export const ExhibitModal: React.FC = () => {
     addClue,
     activeGallery,
     exhibitModalMode,
+    setExhibitModalMode,
     nickname,
     roomOneCompleted,
     roomFiveProgress,
@@ -231,7 +234,9 @@ export const ExhibitModal: React.FC = () => {
   const speechUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const speechKeyRef = useRef<string | null>(null);
   // --- States cho Gameplay Bao cấp (gallery-subsidy) ---
-  const isSubsidyRoom = activeGallery?.id === 'gallery-subsidy';
+  // Nhận diện Room 1 theo cả hiện vật để không phụ thuộc thời điểm cập nhật activeGallery.
+  const isSubsidyRoom = activeGallery?.id === 'gallery-subsidy'
+    || selectedExhibit?.gallery_id === 'gallery-subsidy';
   const gameData = selectedExhibit
     ? ROOM_ONE_GAMEPLAY[selectedExhibit.id] ?? GAMEPLAY_DICTIONARY[selectedExhibit.id]
     : null;
@@ -399,12 +404,12 @@ export const ExhibitModal: React.FC = () => {
     // Room 05 có thể đã được preload trước khi dữ liệu JSON mới được tải lại.
     // Ưu tiên danh sách ảnh cố định này để modal luôn thay poster SVG cũ.
     if (selectedExhibit.id === 'nha-rong-departure-1911') return NHA_RONG_DEPARTURE_IMAGES;
-    if (selectedExhibit.id === 'nha-rong-first-voyage') return ['/exhibits/nha-rong-first-voyage.png'];
+    if (selectedExhibit.id === 'nha-rong-first-voyage') return ['/exhibits/hcm/r2-thu-marseille-1911.jpg'];
     if (selectedExhibit.id === 'nha-rong-latouche-treville' && exhibitModalMode === 'game') {
-      return ['/exhibits/nha-rong-van-ba-profile.png'];
+      return ['/exhibits/hcm/r2-tau-latouche.jpg'];
     }
     if (selectedExhibit.id === 'nha-rong-galley-work' && exhibitModalMode === 'game') {
-      return ['/exhibits/nha-rong-galley-archive.png'];
+      return ['/exhibits/hcm/r2-lao-dong.jpg'];
     }
     if (selectedExhibit.id === 'nha-rong-ship-exploration') return ['/exhibits/nha-rong-ship.svg'];
 
@@ -451,6 +456,20 @@ export const ExhibitModal: React.FC = () => {
 
     setIsCorrect(correct);
     setAnswerChecked(true);
+  };
+
+  // Room 1: từ màn thông tin chuyển sang làm câu hỏi ôn tập để tích điểm.
+  const canStartRoomOneQuiz = isSubsidyRoom && !!gameData && !roomOneCompleted
+    && !(isRoomOneFinalRound ? finalArchiveClueCollected : cluesCollected.includes(selectedExhibit?.id ?? ''))
+    && (!isRoomOneFinalRound || hasAllRoomOnePoints);
+  const startRoomOneQuiz = () => {
+    setExhibitModalMode('game');
+    setGameState('quiz');
+    setCurrentQuizIndex(0);
+    setSelectedOption(null);
+    setSelectedOptions([]);
+    setAnswerChecked(false);
+    setIsCorrect(false);
   };
 
   const handleNextStep = () => {
@@ -524,7 +543,7 @@ export const ExhibitModal: React.FC = () => {
               : isFirstVoyageGame
               ? (language === 'vi' ? 'Trò chơi hải trình' : 'Voyage game')
               : isSubsidyRoom
-                ? 'Lịch sử Đảng Cộng sản Việt Nam'
+                ? 'Khởi nguồn Tư tưởng Hồ Chí Minh'
                 : (selectedExhibit.model_3d_url ? 'Điêu Khắc 3D' : 'Hội Họa 2D')}
           </span>
         </div>
@@ -607,9 +626,33 @@ export const ExhibitModal: React.FC = () => {
                 {/* Mở tranh là vào câu hỏi ngay, không có thời gian chờ. */}
                 {effectiveGameState === 'quiz' && currentQuiz && (
                   <div className="space-y-4">
-                    <div className="flex items-center gap-1.5 text-amber-400 font-mono font-bold text-[10px] uppercase tracking-wider">
-                      <HelpCircle size={14} />
-                      <span>CÂU HỎI LỊCH SỬ {currentQuizIndex + 1}/{gameData.quizzes.length}</span>
+                    {/* Nội dung bài học: đọc trước rồi trả lời câu hỏi ôn tập bên dưới */}
+                    <details open className="group rounded-2xl border border-slate-800 bg-slate-900/40">
+                      <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 text-[11px] font-bold uppercase tracking-wider text-cyan-300 font-mono">
+                        <span className="flex items-center gap-1.5">
+                          <BookOpen size={14} />
+                          Nội dung bài học
+                        </span>
+                        <span className="text-slate-500 transition-transform group-open:rotate-180">▾</span>
+                      </summary>
+                      <p className="max-h-48 overflow-y-auto px-4 pb-4 text-sm leading-relaxed text-slate-200 font-sans text-justify">
+                        {gameData.historyText}
+                      </p>
+                    </details>
+
+                    <div className="flex items-center justify-between gap-2 text-amber-400 font-mono font-bold text-[10px] uppercase tracking-wider">
+                      <span className="flex items-center gap-1.5">
+                        <HelpCircle size={14} />
+                        CÂU HỎI ÔN TẬP {currentQuizIndex + 1}/{gameData.quizzes.length}
+                      </span>
+                      <span className="flex gap-1" aria-hidden="true">
+                        {gameData.quizzes.map((_, i) => (
+                          <span
+                            key={i}
+                            className={`h-1.5 w-6 rounded-full ${i < currentQuizIndex ? 'bg-emerald-400' : i === currentQuizIndex ? 'bg-amber-400' : 'bg-slate-700'}`}
+                          />
+                        ))}
+                      </span>
                     </div>
                     <div className="bg-slate-900/50 border border-slate-800 p-5 rounded-2xl">
                       <p className="font-sans text-xl lg:text-2xl font-bold text-slate-50 leading-relaxed">
@@ -661,6 +704,12 @@ export const ExhibitModal: React.FC = () => {
                           <div className="bg-emerald-500/10 border border-emerald-500/25 p-5 rounded-2xl flex flex-col items-center text-center gap-3 text-emerald-400">
                             <Check size={30} />
                             <span className="font-mono font-bold text-sm">Đáp án chính xác!</span>
+                            {currentQuiz.explanation && (
+                              <p className="text-sm leading-relaxed text-emerald-100 font-sans text-left">
+                                <span className="font-bold text-emerald-300">Giải thích: </span>
+                                {currentQuiz.explanation}
+                              </p>
+                            )}
                             <p className="text-xs text-emerald-300/80">
                               {currentQuizIndex < gameData.quizzes.length - 1
                                 ? 'Tiếp tục trả lời câu tiếp theo để nhận điểm.'
@@ -673,7 +722,7 @@ export const ExhibitModal: React.FC = () => {
                           <div className="bg-rose-500/10 border border-rose-500/25 p-5 rounded-2xl flex flex-col items-center text-center gap-3 text-rose-400">
                             <AlertTriangle size={30} />
                             <span className="font-mono font-bold text-sm">Lựa chọn chưa đúng.</span>
-                            <p className="text-xs text-rose-300/80">Hãy chọn lại đáp án đúng để tiếp tục câu hỏi này.</p>
+                            <p className="text-xs text-rose-300/80">Hãy đọc lại phần Nội dung bài học phía trên rồi chọn lại đáp án.</p>
                           </div>
                         )}
 
@@ -707,7 +756,7 @@ export const ExhibitModal: React.FC = () => {
                     <div className="space-y-2">
                       <span className="text-[10px] font-bold text-slate-400 tracking-wider uppercase flex items-center gap-1.5 font-mono">
                         <BookOpen size={14} />
-                        Tư liệu lịch sử bao cấp
+                        Nội dung bài học
                       </span>
                       <p className="text-xs text-slate-200 leading-relaxed font-sans text-justify bg-slate-900/35 p-3 rounded-xl border border-slate-900 font-medium">
                         {gameData.historyText}
@@ -741,6 +790,16 @@ export const ExhibitModal: React.FC = () => {
                         </div>
                       </div>
                     ) : null}
+
+                    {canStartRoomOneQuiz && (
+                      <button
+                        onClick={startRoomOneQuiz}
+                        className="w-full bg-amber-500 hover:bg-amber-400 text-slate-950 font-black py-4 px-5 rounded-2xl transition-all cursor-pointer uppercase font-sans tracking-wide text-base flex items-center justify-center gap-2"
+                      >
+                        <HelpCircle size={18} />
+                        Làm {gameData.quizzes.length} câu hỏi ôn tập để nhận điểm
+                      </button>
+                    )}
                   </div>
                 )}
               </div>

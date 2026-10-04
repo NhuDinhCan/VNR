@@ -24,9 +24,23 @@ const dirtyUsers = new Set(); // Tập hợp socketId có vị trí thay đổi
 setInterval(() => {
   if (dirtyUsers.size === 0) return;
   // Gom tất cả user dirty thành 1 mảng
+  // Chỉ gửi trường chuyển động (làm tròn 2 chữ số) để gói tin nhỏ gọn khi đông người;
+  // client gộp vào bản ghi đầy đủ đã có từ 'users-list' / 'user-joined'.
+  const round2 = (n) => (typeof n === 'number' ? Math.round(n * 100) / 100 : n);
   const batch = [];
   for (const sid of dirtyUsers) {
-    if (activeUsers[sid]) batch.push(activeUsers[sid]);
+    const u = activeUsers[sid];
+    if (!u) continue;
+    batch.push({
+      id: u.id,
+      x: round2(u.x),
+      y: round2(u.y),
+      z: round2(u.z),
+      yaw: round2(u.yaw),
+      isSitting: !!u.isSitting,
+      headYaw: round2(u.headYaw || 0),
+      galleryId: u.galleryId,
+    });
   }
   dirtyUsers.clear();
   if (batch.length > 0) {
@@ -163,6 +177,16 @@ const broadcastRoomTwoPlayers = () => {
 const DOOR_CLOSE_COUNTDOWN_MS = 5000;
 
 // Hàm ánh xạ phòng triển lãm sang phòng socket hợp nhất
+// Màu áo nhân vật: cấp chỉ số màu ít người dùng nhất để mỗi người một màu (bảng 12 màu ở client).
+const AVATAR_COLOR_COUNT = 12;
+const pickAvatarColorIndex = () => {
+  const usage = new Array(AVATAR_COLOR_COUNT).fill(0);
+  for (const u of Object.values(activeUsers)) {
+    if (typeof u.colorIndex === 'number') usage[u.colorIndex] += 1;
+  }
+  return usage.indexOf(Math.min(...usage));
+};
+
 const getSocketRoom = (galleryId) => {
   // Tất cả phòng trong bảo tàng giờ chung 1 socket room (vì chúng nối liền nhau)
   return 'museum-unified';
@@ -334,12 +358,13 @@ io.on('connection', (socket) => {
 
     if (activeInRoom.length < MAX_USERS_PER_ROOM) {
       // Cho phép vào phòng trực tiếp
+      newUser.colorIndex = pickAvatarColorIndex();
       activeUsers[socket.id] = newUser;
       socket.join(socketRoom);
       console.log(`[JOIN] ${newUser.nickname} (${socket.id}) vào phòng ${galleryId} (socket: ${socketRoom}) trực tiếp. (${activeInRoom.length + 1}/${MAX_USERS_PER_ROOM})`);
       
       // Phản hồi thành công
-      socket.emit('join-success');
+      socket.emit('join-success', { colorIndex: newUser.colorIndex });
 
       // Gửi danh sách toàn bộ người chơi trong phòng cho người mới
       const usersInRoom = Object.values(activeUsers).filter(u => getSocketRoom(u.galleryId) === socketRoom);
@@ -447,17 +472,28 @@ io.on('connection', (socket) => {
     const user = activeUsers[socket.id];
     if (!user) return;
 
+    // Chống spam khi đông người: tối đa 1 tin / 700ms mỗi người, nội dung ≤ 140 ký tự.
+    const now = Date.now();
+    if (socket.lastChatAt && now - socket.lastChatAt < 700) return;
+    const text = typeof data?.text === 'string'
+      ? data.text.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, 140)
+      : '';
+    if (!text) return;
+    socket.lastChatAt = now;
+
     const chatMsg = {
       userId: socket.id,
       nickname: user.nickname,
-      text: data.text,
+      text,
+      galleryId: user.galleryId,
+      sentAt: now,
       timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
 
     const socketRoom = getSocketRoom(user.galleryId);
     // Phát tin nhắn cho những người khác trong cùng phòng
     socket.to(socketRoom).emit('receive-message', chatMsg);
-    console.log(`[CHAT] [Room ${user.galleryId}] (socket: ${socketRoom}) ${user.nickname}: ${data.text}`);
+    console.log(`[CHAT] [Room ${user.galleryId}] (socket: ${socketRoom}) ${user.nickname}: ${text}`);
   });
 
   // ═══════════════════════════════════════════════════════════════════════════
@@ -993,12 +1029,13 @@ io.on('connection', (socket) => {
           const nextUser = nextSocket.tempUserData;
 
           // Thêm người chơi mới vào phòng hoạt động
+          nextUser.colorIndex = pickAvatarColorIndex();
           activeUsers[nextSocketId] = nextUser;
           nextSocket.join(socketRoom);
           console.log(`[QUEUE-ADMIT] ${nextUser.nickname} (${nextSocketId}) được duyệt vào phòng ${nextUser.galleryId} (socket: ${socketRoom}) từ hàng chờ.`);
 
           // Gửi thông báo phê duyệt
-          nextSocket.emit('admitted');
+          nextSocket.emit('admitted', { colorIndex: nextUser.colorIndex });
 
           // Gửi danh sách toàn bộ người chơi trong phòng cho người mới
           const usersInRoom = Object.values(activeUsers).filter(u => getSocketRoom(u.galleryId) === socketRoom);

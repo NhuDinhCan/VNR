@@ -7,6 +7,7 @@ import { LoadedRoom } from '@/context/MuseumContext';
 import roomFourSpatial from '@/lib/roomFourSpatial.json';
 import roomFiveSpatial from '@/lib/roomFiveSpatial.json';
 import { ROOM_ONE_FINAL_ARCHIVE_IMAGE_ID } from '@/lib/roomOneGameplay';
+import { findSceneObject } from '@/lib/sceneLookup';
 
 /**
  * DynamicRoom — Component tải phòng triển lãm động tại offset Z cho trước
@@ -120,7 +121,7 @@ export const DynamicRoom: React.FC<DynamicRoomProps> = ({
       return;
     }
 
-    const player = state.scene.getObjectByName('lobby-player');
+    const player = findSceneObject(state.scene, 'lobby-player');
     if (player) {
       const playerZ = player.position.z;
       const dist = Math.abs(playerZ - roomCullCenterZ);

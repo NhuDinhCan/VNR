@@ -1,6 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
+import { avatarColorFor } from "@/lib/avatarColor";
 import { useMuseum } from "@/context/MuseumContext";
 import {
   isPointInsideRoomFourCollider,
@@ -29,7 +30,6 @@ const LEG_PIVOT_Y = 0.28 - TORSO_H / 2 - TORSO_R + LEG_R * 1.6; // Đẩy chân 
 const LEG_PIVOT_X = 0.082;
 const LEG_MESH_Y = -(LEG_R + LEG_LEN / 2);
 
-const MU_RED = "#da291c";
 const MU_BLACK = "#101114";
 const MU_GOLD = "#f5c542";
 const MU_BADGE_RED = "#b51922";
@@ -51,6 +51,7 @@ export const PlayerCharacter: React.FC = () => {
     socket,
     activeGallery,
     nickname,
+    myColorIndex,
     settings,
     miniGameOpen,
     roomFourInteractionOpen,
@@ -60,6 +61,7 @@ export const PlayerCharacter: React.FC = () => {
   const playerRef = useRef<THREE.Group>(null);
 
   const isPawn = settings.preset === "low";
+  const shirtColor = avatarColorFor(nickname, myColorIndex);
   const baseY = isPawn ? 0.24 : 0.472; // Phóng to 1.6x (0.15 * 1.6 và 0.295 * 1.6)
 
   const leftLegRef = useRef<THREE.Group>(null);
@@ -372,7 +374,7 @@ export const PlayerCharacter: React.FC = () => {
           {/* Thân con cờ */}
           <mesh position={[0, 0.2, 0]}>
             <cylinderGeometry args={[0.07, 0.18, 0.5, 16]} />
-            <meshStandardMaterial color={MU_RED} roughness={0.55} metalness={0} />
+            <meshStandardMaterial color={shirtColor} roughness={0.55} metalness={0} />
           </mesh>
           {/* Cổ áo đen cho bản đồ họa nhẹ */}
           <mesh position={[0, 0.47, 0]} rotation={[Math.PI / 2, 0, 0]}>
@@ -397,7 +399,7 @@ export const PlayerCharacter: React.FC = () => {
           {/* THÂN - Capsule mập */}
           <mesh position={[0, 0.28, 0]}>
             <capsuleGeometry args={[TORSO_R, TORSO_H, 10, 20]} />
-            <meshStandardMaterial color={MU_RED} roughness={0.55} metalness={0} />
+            <meshStandardMaterial color={shirtColor} roughness={0.55} metalness={0} />
           </mesh>
 
           {/* Áo Manchester United: cổ đen, chữ V đen và huy hiệu nhỏ ở ngực */}
@@ -422,7 +424,7 @@ export const PlayerCharacter: React.FC = () => {
           <group ref={leftArmRef} position={[-ARM_PIVOT_X, ARM_PIVOT_Y, 0]}>
             <mesh position={[0, ARM_MESH_Y, 0]}>
               <capsuleGeometry args={[ARM_R, ARM_LEN, 8, 16]} />
-              <meshStandardMaterial color={MU_RED} roughness={0.55} metalness={0} />
+              <meshStandardMaterial color={shirtColor} roughness={0.55} metalness={0} />
             </mesh>
           </group>
 
@@ -430,7 +432,7 @@ export const PlayerCharacter: React.FC = () => {
           <group ref={rightArmRef} position={[ARM_PIVOT_X, ARM_PIVOT_Y, 0]}>
             <mesh position={[0, ARM_MESH_Y, 0]}>
               <capsuleGeometry args={[ARM_R, ARM_LEN, 8, 16]} />
-              <meshStandardMaterial color={MU_RED} roughness={0.55} metalness={0} />
+              <meshStandardMaterial color={shirtColor} roughness={0.55} metalness={0} />
             </mesh>
           </group>
 

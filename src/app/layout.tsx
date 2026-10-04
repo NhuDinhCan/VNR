@@ -45,9 +45,9 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Bảo Tàng Ảo 3D | Hệ Thống Triển Lãm Không Gian Nghệ Thuật Tương Tác",
-  description: "Trải nghiệm không gian bảo tàng ảo 3D tương tác thời gian thực, xem tranh nghệ thuật và các mô hình điêu khắc cổ vật với chất lượng cao trên nền tảng Web.",
-  keywords: ["bao tang ao 3d", "virtual museum", "trien lam nghe thuat 3d", "react three fiber", "nextjs"],
+  title: "Bảo tàng Lịch sử Hồ Chí Minh | Bảo tàng 3D tương tác",
+  description: "Bảo tàng 3D tương tác về cuộc đời, sự nghiệp và tư tưởng Hồ Chí Minh, xây dựng theo giáo trình Tư tưởng Hồ Chí Minh.",
+  keywords: ["bao tang lich su ho chi minh", "tu tuong ho chi minh", "HCM202", "bao tang ao 3d", "virtual museum"],
 };
 
 export default function RootLayout({

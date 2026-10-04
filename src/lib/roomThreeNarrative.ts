@@ -1,1 +1,1 @@
-export const ROOM_THREE_DISPLAY_NAME = 'Phòng 03: Đảng lãnh đạo các cuộc kháng chiến (1945–1975)';
+export const ROOM_THREE_DISPLAY_NAME = 'Phòng 03: Bản Yêu sách của nhân dân An Nam (Paris, 1919)';
